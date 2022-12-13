@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".menu.MenuFragment"
+    android:background="@color/beige_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/margin">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/logoImage"
+                android:layout_width="@dimen/content_width"
+                android:layout_height="@dimen/logo_height"
+                android:layout_marginTop="@dimen/margin"
+                android:padding="4dp"
+                android:src="@drawable/ic_baseline_map_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/green_500"
+                app:strokeWidth="4dp" />
+
+            <ImageButton
+                android:id="@+id/createGameButton"
+                android:layout_width="@dimen/dog_paw_width"
+                android:layout_height="@dimen/dog_paw_height"
+                android:background="@drawable/dog_paw"
+                android:scaleType="fitEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.047"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createGameInfo" />
+
+
+            <ImageButton
+                android:id="@+id/joinGameButton"
+                android:layout_width="@dimen/dog_paw_width"
+                android:layout_height="@dimen/dog_paw_height"
+                android:background="@drawable/dog_paw"
+                android:scaleType="fitEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.746"
+                app:layout_constraintStart_toEndOf="@+id/createGameButton"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+            <ImageButton
+                android:id="@+id/currentGameButton"
+                android:layout_width="@dimen/dog_paw_width"
+                android:layout_height="@dimen/dog_paw_height"
+                android:background="@drawable/dog_paw"
+                android:scaleType="fitEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.185"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/createGameInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Create Game"
+                android:textColor="@color/green_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/textView3"
+                app:layout_constraintHorizontal_bias="0.039"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="Current Game"
+                android:textColor="@color/green_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.162"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createGameButton" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="48dp"
+                android:text="Join Game"
+                android:textColor="@color/green_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</FrameLayout>
+</layout>
