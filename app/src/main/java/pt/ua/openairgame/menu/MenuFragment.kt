@@ -17,15 +17,15 @@ class MenuFragment : Fragment() {
     ): View {
         val binding = DataBindingUtil.inflate<FragmentMenuBinding>(inflater, R.layout.fragment_menu, container, false)
 
-        binding.createGameButton.setOnClickListener{ view : View ->
-            TODO("Go to CreateGameFragment")
-        }
-        binding.currentGameButton.setOnClickListener{ view : View ->
-            TODO("Go to CurrentGameFragment")
-        }
-        binding.joinGameButton.setOnClickListener{ view : View ->
-            TODO("Go to JoinGameFragment")
-        }
+//        binding.createGameButton.setOnClickListener{ view : View ->
+//            TODO("Go to CreateGameFragment")
+//        }
+//        binding.currentGameButton.setOnClickListener{ view : View ->
+//            TODO("Go to CurrentGameFragment")
+//        }
+//        binding.joinGameButton.setOnClickListener{ view : View ->
+//            TODO("Go to JoinGameFragment")
+//        }
 
         return binding.root
     }
