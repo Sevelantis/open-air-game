@@ -19,6 +19,25 @@
         android:id="@+id/menuFragment"
         android:name="pt.ua.openairgame.menu.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_createGameFragment"
+            app:destination="@id/createGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createGameFragment"
+        android:name="pt.ua.openairgame.creategame.CreateGameFragment"
+        android:label="CreateGameFragment"
+        tools:layout="@layout/fragment_create_game">
+        <action
+            android:id="@+id/action_createGameFragment_to_addRiddleFragment"
+            app:destination="@id/addRiddleFragment"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/addRiddleFragment"
+        android:name="pt.ua.openairgame.creategame.AddRiddleFragment"
+        android:label="AddRiddleFragment"
+        tools:layout="@layout/fragment_add_riddle"/>
 
 </navigation>
