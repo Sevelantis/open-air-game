@@ -86,7 +86,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.dd.processbutton.iml.ActionProcessButton
-                android:id="@+id/signInButton"
+                android:id="@+id/buttonSignIn"
                 android:layout_width="@dimen/content_width"
                 android:layout_height="@dimen/elem_height_normal"
                 android:layout_margin="@dimen/margin"
@@ -108,7 +108,7 @@
                 app:pb_textProgress="@string/loading" />
 
             <com.dd.processbutton.iml.ActionProcessButton
-                android:id="@+id/signUpButton"
+                android:id="@+id/buttonSignUp"
                 android:layout_width="@dimen/content_width_smaller"
                 android:layout_height="@dimen/elem_height_smaller"
                 android:layout_marginBottom="@dimen/margin"
@@ -132,7 +132,7 @@
                 android:layout_marginBottom="4dp"
                 android:text="@string/don_t_have_an_account"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/signUpButton"
+                app:layout_constraintBottom_toTopOf="@+id/buttonSignUp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

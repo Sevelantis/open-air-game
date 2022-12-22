@@ -38,6 +38,12 @@
         android:id="@+id/addRiddleFragment"
         android:name="pt.ua.openairgame.creategame.AddRiddleFragment"
         android:label="AddRiddleFragment"
-        tools:layout="@layout/fragment_add_riddle"/>
+        tools:layout="@layout/fragment_add_riddle">
+        <action
+            android:id="@+id/action_addRiddleFragment_to_createGameFragment"
+            app:destination="@id/createGameFragment"
+            app:popUpTo="@id/createGameFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

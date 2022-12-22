@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import pt.ua.openairgame.R
 import pt.ua.openairgame.databinding.FragmentMenuBinding
 
@@ -17,15 +18,15 @@ class MenuFragment : Fragment() {
     ): View {
         val binding = DataBindingUtil.inflate<FragmentMenuBinding>(inflater, R.layout.fragment_menu, container, false)
 
-//        binding.createGameButton.setOnClickListener{ view : View ->
-//            TODO("Go to CreateGameFragment")
-//        }
-//        binding.currentGameButton.setOnClickListener{ view : View ->
-//            TODO("Go to CurrentGameFragment")
-//        }
-//        binding.joinGameButton.setOnClickListener{ view : View ->
-//            TODO("Go to JoinGameFragment")
-//        }
+        binding.buttonGameCreate.setOnClickListener{ view : View ->
+            view.findNavController().navigate(R.id.action_menuFragment_to_createGameFragment)
+        }
+        binding.buttonGameCurrent.setOnClickListener{ view : View ->
+            // TODO
+        }
+        binding.buttonGameJoin.setOnClickListener{ view : View ->
+            // TODO
+        }
 
         return binding.root
     }

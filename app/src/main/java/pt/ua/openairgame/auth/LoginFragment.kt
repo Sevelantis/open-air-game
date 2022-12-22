@@ -18,13 +18,12 @@ class LoginFragment : Fragment() {
     ): View {
         val binding = DataBindingUtil.inflate<FragmentLoginBinding>(inflater, R.layout.fragment_login, container, false)
 
-        binding.signInButton.setOnClickListener{ view : View ->
+        binding.buttonSignIn.setOnClickListener{ view : View ->
             view.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
         }
-//        binding.signUpButton.setOnClickListener{ view : View ->
-//            TODO("Go to SignUpFragment")
-//        }
-
+        binding.buttonSignUp.setOnClickListener { view: View ->
+            // TODO
+        }
         return binding.root
     }
 

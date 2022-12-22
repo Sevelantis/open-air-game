@@ -33,7 +33,7 @@
                 app:strokeWidth="4dp" />
 
             <ImageButton
-                android:id="@+id/createGameButton"
+                android:id="@+id/buttonGameCreate"
                 android:layout_width="@dimen/dog_paw_width"
                 android:layout_height="@dimen/dog_paw_height"
                 android:background="@drawable/dog_paw"
@@ -45,19 +45,19 @@
 
 
             <ImageButton
-                android:id="@+id/joinGameButton"
+                android:id="@+id/buttonGameJoin"
                 android:layout_width="@dimen/dog_paw_width"
                 android:layout_height="@dimen/dog_paw_height"
                 android:background="@drawable/dog_paw"
                 android:scaleType="fitEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.746"
-                app:layout_constraintStart_toEndOf="@+id/createGameButton"
+                app:layout_constraintStart_toEndOf="@+id/buttonGameCreate"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
             <ImageButton
-                android:id="@+id/currentGameButton"
+                android:id="@+id/buttonGameCurrent"
                 android:layout_width="@dimen/dog_paw_width"
                 android:layout_height="@dimen/dog_paw_height"
                 android:background="@drawable/dog_paw"
@@ -93,7 +93,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.162"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createGameButton" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonGameCreate" />
 
             <TextView
                 android:id="@+id/textView3"
