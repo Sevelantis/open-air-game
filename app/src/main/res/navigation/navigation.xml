@@ -23,6 +23,12 @@
         <action
             android:id="@+id/action_menuFragment_to_createGameFragment"
             app:destination="@id/createGameFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_currentGameFragment"
+            app:destination="@id/currentGameFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_joinGameFragment"
+            app:destination="@id/joinGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/createGameFragment"
@@ -45,5 +51,15 @@
             app:popUpTo="@id/createGameFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/currentGameFragment"
+        android:name="pt.ua.openairgame.currentgame.CurrentGameFragment"
+        android:label="fragment_current_game"
+        tools:layout="@layout/fragment_current_game" />
+    <fragment
+        android:id="@+id/joinGameFragment"
+        android:name="pt.ua.openairgame.joingame.JoinGameFragment"
+        android:label="fragment_join_game"
+        tools:layout="@layout/fragment_join_game" />
 
 </navigation>

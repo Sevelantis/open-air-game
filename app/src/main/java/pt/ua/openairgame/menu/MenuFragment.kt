@@ -22,10 +22,10 @@ class MenuFragment : Fragment() {
             view.findNavController().navigate(R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->
-            // TODO
+            view.findNavController().navigate(R.id.action_menuFragment_to_currentGameFragment)
         }
         binding.buttonGameJoin.setOnClickListener{ view : View ->
-            // TODO
+            view.findNavController().navigate(R.id.action_menuFragment_to_joinGameFragment)
         }
 
         return binding.root
