@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "150952314829",
+    "project_id": "open-air-game-b9ab7",
+    "storage_bucket": "open-air-game-b9ab7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150952314829:android:e7cb3c7132a081ec4b6684",
+        "android_client_info": {
+          "package_name": "pt.ua.openairgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150952314829-ubqi4js1g1c29l3or5u5pcgva8pa5tdi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5jLyToQI9vu62gr8opcjYcSsvArKlYTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150952314829-ubqi4js1g1c29l3or5u5pcgva8pa5tdi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
