@@ -25,6 +25,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tvRiddleIndex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="#2"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAddRiddleTitle" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
@@ -32,7 +43,7 @@
                 android:layout_margin="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
+                app:layout_constraintTop_toBottomOf="@+id/tvRiddleIndex">
 
                 <EditText
                     android:id="@+id/editTextRiddle"
@@ -43,6 +54,7 @@
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:minHeight="48dp"
+                    android:textColorHint="#757575"
                     app:layout_constraintBottom_toTopOf="@+id/editTextAnswer"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +79,9 @@
 
             <Button
                 android:id="@+id/buttonSaveRiddle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="24dp"
                 android:text="Save riddle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +89,9 @@
 
             <Button
                 android:id="@+id/buttonAddHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="24dp"
                 android:text="Add hint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

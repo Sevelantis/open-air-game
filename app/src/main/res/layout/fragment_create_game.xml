@@ -34,7 +34,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvCreateGameTitle">
 
                 <EditText
-                    android:id="@+id/editTextRiddle"
+                    android:id="@+id/editTextGameName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -60,7 +60,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextRiddle"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextGameName"
                     android:importantForAutofill="no" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -71,6 +71,27 @@
                 android:text="@string/next_step"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+            <Button
+                android:id="@+id/buttonSaveGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save game"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonGameNextStep"
+                android:enabled="false"/>
+
+            <Button
+                android:id="@+id/buttonShowOnMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Map"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/buttonGameNextStep"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
