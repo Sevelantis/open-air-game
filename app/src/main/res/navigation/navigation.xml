@@ -28,7 +28,9 @@
             app:destination="@id/currentGameFragment" />
         <action
             android:id="@+id/action_menuFragment_to_joinGameFragment"
-            app:destination="@id/joinGameFragment" />
+            app:destination="@id/joinGameFragment"
+            app:popUpTo="@id/menuFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/createGameFragment"

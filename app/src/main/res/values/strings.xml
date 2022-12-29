@@ -16,4 +16,6 @@
     <string name="add_new_riddle">Add new riddle</string>
     <string name="text_of_riddle">Text of riddle</string>
     <string name="answer">Answer</string>
+    <string name="scan_qr_code">Scan a QR Code</string>
+    <string name="result_not_found">Result Not Found</string>
 </resources>
