@@ -1,5 +1,7 @@
 package pt.ua.openairgame.model
 
+import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -8,17 +10,38 @@ class GameData(val name: String, val description: String?) {
 }
 
 class GameDataViewModel : ViewModel() {
-    private val mGameData = MutableLiveData<GameData>()
+    private var _gameData = MutableLiveData<GameData>()
 
+    fun setGameData(gd: GameData) {
+        _gameData.postValue(gd)
+    }
+
+    fun reset() {
+        _gameData = MutableLiveData<GameData>()
+    }
+
+    val gameData: LiveData<GameData>
+        get() = _gameData
+
+    @SuppressLint("NullSafeMutableLiveData")
     fun addRiddle(riddle: Riddle) {
-        mGameData.value!!.riddles.add(riddle)
+        val gd: GameData? = _gameData.value
+        if (gd != null) {
+            gd.riddles.add(riddle)
+            _gameData.postValue(gd)
+        }
     }
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun removeRiddle(riddle: Riddle) {
-        mGameData.value!!.riddles.remove(riddle)
+        val gd: GameData? = _gameData.value
+        if (gd != null) {
+            gd.riddles.remove(riddle)
+            _gameData.postValue(gd)
+        }
     }
 
-    fun getRiddles(): ArrayList<Riddle> {
-        return mGameData.value!!.riddles
+    fun getRiddles(): ArrayList<Riddle>? {
+        return _gameData.value?.riddles
     }
 }
