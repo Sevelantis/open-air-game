@@ -32,82 +32,84 @@
                 app:strokeColor="@color/green_500"
                 app:strokeWidth="4dp" />
 
-            <ImageButton
+            <com.dd.processbutton.iml.ActionProcessButton
                 android:id="@+id/buttonGameCreate"
-                android:layout_width="@dimen/dog_paw_width"
-                android:layout_height="@dimen/dog_paw_height"
-                android:background="@drawable/dog_paw"
-                android:scaleType="fitEnd"
+                android:layout_width="340dp"
+                android:layout_height="63dp"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/create_new_game"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.047"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/createGameInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/logoImage"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
 
-
-            <ImageButton
-                android:id="@+id/buttonGameJoin"
-                android:layout_width="@dimen/dog_paw_width"
-                android:layout_height="@dimen/dog_paw_height"
-                android:background="@drawable/dog_paw"
-                android:scaleType="fitEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.746"
-                app:layout_constraintStart_toEndOf="@+id/buttonGameCreate"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-
-            <ImageButton
+            <com.dd.processbutton.iml.ActionProcessButton
                 android:id="@+id/buttonGameCurrent"
-                android:layout_width="@dimen/dog_paw_width"
-                android:layout_height="@dimen/dog_paw_height"
-                android:background="@drawable/dog_paw"
-                android:scaleType="fitEnd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.185"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/createGameInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Create Game"
-                android:textColor="@color/green_yellow"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/textView3"
-                app:layout_constraintHorizontal_bias="0.039"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:text="Current Game"
-                android:textColor="@color/green_yellow"
-                android:textSize="20dp"
+                android:layout_width="340dp"
+                android:layout_height="63dp"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/current_game"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.162"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonGameCreate" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonGameJoin"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="48dp"
-                android:text="Join Game"
-                android:textColor="@color/green_yellow"
-                android:textSize="20dp"
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/buttonGameJoin"
+                android:layout_width="340dp"
+                android:layout_height="63dp"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/join_game"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonGameCreate"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
 
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/buttonShowQr"
+                android:layout_width="340dp"
+                android:layout_height="63dp"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/show_qr"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.589"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonGameCurrent"
+                app:layout_constraintVertical_bias="0.295"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>

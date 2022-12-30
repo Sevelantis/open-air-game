@@ -25,6 +25,7 @@ android {
     // Enables data binding.
     buildFeatures {
         dataBinding true
+        viewBinding = true
     }
     buildTypes {
         release {
@@ -75,4 +76,10 @@ dependencies {
     // https://firebase.google.com/docs/android/setup#available-libraries
 
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
+
+    // QR scan
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    // QR generate
+    implementation 'com.google.zxing:core:3.4.1'
+
 }

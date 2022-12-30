@@ -5,15 +5,20 @@
     <string name="success">Success</string>
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
+    <string name="show_qr">Show your game\'s QR</string>
     <string name="password">Password</string>
     <string name="e_mail">E-mail</string>
     <string name="loading">Loading</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="create_new_game">Create new game</string>
+    <string name="join_game">Join game</string>
+    <string name="current_game">Current game</string>
     <string name="next_step">Next step</string>
     <string name="editTextAnswer">Description</string>
     <string name="game_name">Game name</string>
     <string name="add_new_riddle">Add new riddle</string>
     <string name="text_of_riddle">Text of riddle</string>
     <string name="answer">Answer</string>
+    <string name="scan_qr_code">Scan a QR Code</string>
+    <string name="result_not_found">Result Not Found</string>
 </resources>

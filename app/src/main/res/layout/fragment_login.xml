@@ -5,8 +5,7 @@
     <FrameLayout
         android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".auth.LoginFragment"
-    android:background="@color/beige_background">
+    tools:context=".auth.LoginFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

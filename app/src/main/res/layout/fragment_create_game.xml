@@ -5,7 +5,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".creategame.CreateGameFragment">
+        tools:context=".creategame.CreateGameFragment"
+        android:background="@color/beige_background"
+        >
 
         <!-- TODO: Update blank fragment layout -->
 
