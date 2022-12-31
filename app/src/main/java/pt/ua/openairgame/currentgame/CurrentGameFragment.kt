@@ -53,9 +53,8 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        Objects.requireNonNull(sensorManager)!!
-            .registerListener(sensorListener, sensorManager!!
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+        Objects.requireNonNull(sensorManager)?.registerListener(sensorListener, sensorManager!!
+            .getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
 
         acceleration = 10f
         currentAcceleration = SensorManager.GRAVITY_EARTH
@@ -192,7 +191,6 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
 
     fun loadGame() {
 //        gameData = ?
-
     }
 
     private val sensorListener: SensorEventListener = object : SensorEventListener {

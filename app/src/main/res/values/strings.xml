@@ -8,7 +8,9 @@
     <string name="password">Password</string>
     <string name="e_mail">E-mail</string>
     <string name="add_photo_hint">Add photo hint</string>
+    <string name="photo_hint">Photo hint</string>
     <string name="save_riddle">Save riddle</string>
+    <string name="check_answer">Check answer!</string>
     <string name="save_game">Save game</string>
     <string name="show_map">Show map</string>
     <string name="loading">Loading</string>
@@ -20,6 +22,9 @@
     <string name="game_name">Game name</string>
     <string name="riddle">Riddle #1</string>
     <string name="riddle_question">Riddle question?</string>
+    <string name="score">Score: 500</string>
+    <string name="hint_penalty">Hint penalty: 100 points</string>
+    <string name="retries">Retries left: 3</string>
     <string name="game_description">Game description</string>
     <string name="answer">Answer</string>
     <string name="scan_qr_code">Scan a QR Code</string>
