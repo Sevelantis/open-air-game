@@ -17,6 +17,7 @@
                 android:layout_width="@dimen/content_width"
                 android:layout_height="@dimen/logo_height_half"
                 android:padding="4dp"
+                android:layout_marginTop="@dimen/margin"
                 android:src="@drawable/ic_baseline_map_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

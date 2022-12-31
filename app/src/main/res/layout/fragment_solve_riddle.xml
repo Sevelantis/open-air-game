@@ -17,6 +17,7 @@
                 android:id="@+id/logoImage"
                 android:layout_width="@dimen/content_width"
                 android:layout_height="@dimen/logo_height_half"
+                android:layout_marginTop="@dimen/margin"
                 android:padding="4dp"
                 android:src="@drawable/ic_baseline_map_24"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,7 +147,7 @@
 
 
                 <TextView
-                    android:id="@+id/textViewRetries"
+                    android:id="@+id/textViewHintPenalty"
                     android:layout_width="235dp"
                     android:layout_height="@dimen/elem_height_smaller"
                     android:layout_centerHorizontal="true"

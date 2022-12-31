@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="pt.ua.openairgame.model.GameDataViewModel"/>
     </data>
     <FrameLayout
@@ -13,6 +13,7 @@
         tools:context=".creategame.CreateGameFragment"
         android:background="@color/beige_background"
         >
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -74,6 +75,7 @@
                         android:inputType="text"
                         android:lines="1"
                         android:maxLines="1"
+                        android:text="@{viewModel.gameData.name}"
                         android:textColor="@color/black"
                         android:textColorHighlight="#7cff88"
                         android:textSize="18sp"
@@ -88,10 +90,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textInputGameName">
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:hint="@string/game_name"
-                    android:importantForAutofill="no"
-                    android:text="@{viewmodel.gameData.name}"/>
 
                     <EditText
                         android:id="@+id/editTextDescription"
@@ -101,6 +99,7 @@
                         android:layout_centerVertical="true"
                         android:ems="10"
                         android:hint="@string/game_description"
+                        android:text="@{viewModel.gameData.description}"
                         android:inputType="text"
                         android:lines="1"
                         android:maxLines="1"
@@ -141,10 +140,6 @@
                     app:pb_colorProgress="@color/buttonProgress"
                     app:pb_textComplete="@string/success"
                     app:pb_textProgress="@string/loading" />
-                    app:layout_constraintTop_toBottomOf="@+id/editTextGameName"
-                    android:importantForAutofill="no"
-                    android:text="@{viewmodel.gameData.description}"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.dd.processbutton.iml.ActionProcessButton
                     android:id="@+id/buttonGameNextStep"
