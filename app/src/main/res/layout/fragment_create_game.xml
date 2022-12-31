@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="viewmodel"
+            name="viewModel"
             type="pt.ua.openairgame.model.GameDataViewModel"/>
     </data>
     <FrameLayout
@@ -14,95 +14,176 @@
         android:background="@color/beige_background"
         >
 
-        <!-- TODO: Update blank fragment layout -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/logoImage"
+                android:layout_width="@dimen/content_width"
+                android:layout_height="@dimen/logo_height_half"
+                android:layout_marginTop="@dimen/margin"
+                android:padding="4dp"
+                android:src="@drawable/ic_baseline_map_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/green_500"
+                app:strokeWidth="4dp" />
+
             <TextView
                 android:id="@+id/tvCreateGameTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="@string/create_new_game"
-                android:textSize="34sp"
+                android:paddingBottom="@dimen/margin_quarter"
+                android:paddingTop="@dimen/margin_quarter"
+                android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:id="@+id/constraintLayoutTextInputs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/margin_half"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvCreateGameTitle">
 
-                <EditText
-                    android:id="@+id/editTextGameName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputGameName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:hint="@string/game_name"
-                    android:importantForAutofill="no"
-                    android:text="@{viewmodel.gameData.name}"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tvCreateGameTitle">
 
-                <EditText
-                    android:hint="@string/editTextAnswer"
-                    android:id="@+id/editTextDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    <EditText
+                        android:id="@+id/editTextGameName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:hint="@string/game_name"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:text="@{viewModel.gameData.name}"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#7cff88"
+                        android:textSize="18sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputGameDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextGameName"
-                    android:importantForAutofill="no"
-                    android:text="@{viewmodel.gameData.description}"/>
+                    app:layout_constraintTop_toBottomOf="@+id/textInputGameName">
+
+                    <EditText
+                        android:id="@+id/editTextDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:hint="@string/game_description"
+                        android:text="@{viewModel.gameData.description}"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#7cff88"
+                        android:textSize="18sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/buttonGameNextStep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/next_step"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutButtons"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/margin_half"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextInputs">
 
-            <Button
-                android:id="@+id/buttonSaveGame"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save game"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonGameNextStep"
-                android:enabled="false"/>
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/buttonGameShowMap"
+                    android:layout_width="@dimen/content_width_smaller"
+                    android:layout_height="@dimen/elem_height_smaller"
+                    android:layout_margin="@dimen/margin_half"
+                    android:text="@string/show_map"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonGameSave"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:pb_colorComplete="@color/buttonComplete"
+                    app:pb_colorNormal="@color/buttonNormal"
+                    app:pb_colorPressed="@color/buttonPressed"
+                    app:pb_colorProgress="@color/buttonProgress"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textProgress="@string/loading" />
 
-            <Button
-                android:id="@+id/buttonShowOnMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Map"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/buttonGameNextStep"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/buttonGameNextStep"
+                    android:layout_width="@dimen/content_width_smaller"
+                    android:layout_height="@dimen/elem_height_smaller"
+                    android:layout_margin="@dimen/margin_half"
+                    android:text="@string/next_step"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonGameShowMap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    app:pb_colorComplete="@color/buttonComplete"
+                    app:pb_colorNormal="@color/buttonNormal"
+                    app:pb_colorPressed="@color/buttonPressed"
+                    app:pb_colorProgress="@color/buttonProgress"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textProgress="@string/loading" />
+
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/buttonGameSave"
+                    android:layout_width="@dimen/content_width"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin_half"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/save_game"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.508"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:pb_colorComplete="@color/buttonComplete"
+                    app:pb_colorNormal="@color/buttonNormal"
+                    app:pb_colorPressed="@color/buttonPressed"
+                    app:pb_colorProgress="@color/buttonProgress"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textProgress="@string/loading" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

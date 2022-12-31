@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".creategame.AddRiddleFragment"
-        android:background="@color/beige_background">
+        tools:context=".solveriddle.SolveRiddleFragment"
+        android:background="@color/beige_background"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -16,8 +17,8 @@
                 android:id="@+id/logoImage"
                 android:layout_width="@dimen/content_width"
                 android:layout_height="@dimen/logo_height_half"
-                android:padding="4dp"
                 android:layout_marginTop="@dimen/margin"
+                android:padding="4dp"
                 android:src="@drawable/ic_baseline_map_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,35 +43,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/margin_half"
+                android:layout_marginTop="56dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputRiddle"
+                <TextView
+                    android:id="@+id/textViewScore"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/elem_height_normal"
-                    android:layout_margin="@dimen/margin"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:hint="@string/score"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#7cff88"
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewRiddle"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
-                    <EditText
-                        android:id="@+id/editTextRiddle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:ems="10"
-                        android:hint="@string/riddle_question"
-                        android:inputType="text"
-                        android:lines="1"
-                        android:maxLines="1"
-                        android:textColor="@color/black"
-                        android:textColorHighlight="#7cff88"
-                        android:textSize="18sp"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textViewRiddle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:hint="@string/riddle_question"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="@dimen/margin"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#7cff88"
+                    android:textSize="22sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    tools:layout_editor_absoluteY="62dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputRiddleAnswer"
@@ -79,7 +95,7 @@
                     android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputRiddle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewRiddle"
                     app:layout_constraintVertical_bias="0.0">
 
                     <EditText
@@ -110,11 +126,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextInputs">
 
                 <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/buttonAddHint"
+                    android:id="@+id/buttonHint"
                     android:layout_width="@dimen/content_width_smaller"
                     android:layout_height="@dimen/elem_height_smaller"
                     android:layout_margin="@dimen/margin_half"
-                    android:text="@string/add_photo_hint"
+                    android:text="@string/photo_hint"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -129,12 +145,54 @@
                     app:pb_textComplete="@string/success"
                     app:pb_textProgress="@string/loading" />
 
+
+                <TextView
+                    android:id="@+id/textViewHintPenalty"
+                    android:layout_width="235dp"
+                    android:layout_height="@dimen/elem_height_smaller"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/margin_half"
+                    android:layout_centerVertical="true"
+                    android:ems="10"
+                    android:hint="@string/hint_penalty"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="@dimen/margin_half"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#7cff88"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonHint"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewRetries"
+                    android:layout_width="307dp"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/margin_half"
+                    android:ems="10"
+                    android:hint="@string/retries"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="@dimen/margin_half"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#7cff88"
+                    android:textSize="42sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonCheckAnswer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
                 <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/buttonSaveRiddle"
+                    android:id="@+id/buttonCheckAnswer"
                     android:layout_width="@dimen/content_width"
                     android:layout_height="@dimen/elem_height_normal"
                     android:layout_margin="@dimen/margin_half"
-                    android:text="@string/save_riddle"
+                    android:text="@string/check_answer"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -152,6 +210,7 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </FrameLayout>
 </layout>

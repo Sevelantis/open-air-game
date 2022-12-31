@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">OpenAirGame</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="success">Success</string>
     <string name="sign_up">Sign up</string>
@@ -8,16 +7,25 @@
     <string name="show_qr">Show your game\'s QR</string>
     <string name="password">Password</string>
     <string name="e_mail">E-mail</string>
+    <string name="add_photo_hint">Add photo hint</string>
+    <string name="photo_hint">Photo hint</string>
+    <string name="save_riddle">Save riddle</string>
+    <string name="check_answer">Check answer!</string>
+    <string name="save_game">Save game</string>
+    <string name="show_map">Show map</string>
     <string name="loading">Loading</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="create_new_game">Create new game</string>
     <string name="join_game">Join game</string>
     <string name="current_game">Current game</string>
     <string name="next_step">Next step</string>
-    <string name="editTextAnswer">Description</string>
     <string name="game_name">Game name</string>
-    <string name="add_new_riddle">Add new riddle</string>
-    <string name="text_of_riddle">Text of riddle</string>
+    <string name="riddle">Riddle #1</string>
+    <string name="riddle_question">Riddle question?</string>
+    <string name="score">Score: 500</string>
+    <string name="hint_penalty">Hint penalty: 100 points</string>
+    <string name="retries">Retries left: 3</string>
+    <string name="game_description">Game description</string>
     <string name="answer">Answer</string>
     <string name="scan_qr_code">Scan a QR Code</string>
     <string name="result_not_found">Result Not Found</string>

@@ -57,11 +57,19 @@
         android:id="@+id/currentGameFragment"
         android:name="pt.ua.openairgame.currentgame.CurrentGameFragment"
         android:label="fragment_current_game"
-        tools:layout="@layout/fragment_current_game" />
+        tools:layout="@layout/fragment_current_game" >
+        <action
+            android:id="@+id/action_currentGameFragment_to_solveRiddleFragment"
+            app:destination="@id/solveRiddleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/joinGameFragment"
         android:name="pt.ua.openairgame.joingame.JoinGameFragment"
         android:label="fragment_join_game"
         tools:layout="@layout/fragment_join_game" />
+    <fragment
+        android:id="@+id/solveRiddleFragment"
+        android:name="pt.ua.openairgame.solveriddle.SolveRiddleFragment"
+        android:label="SolveRiddleFragment" />
 
 </navigation>

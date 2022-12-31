@@ -16,6 +16,7 @@ import pt.ua.openairgame.model.GameDataViewModel
 
 class CreateGameFragment : Fragment() {
 
+
     private var _gameData: GameData? = null
     private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
@@ -23,19 +24,14 @@ class CreateGameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentCreateGameBinding>(
-            inflater,
-            R.layout.fragment_create_game,
-            container,
-            false
-        )
+        val binding = DataBindingUtil.inflate<FragmentCreateGameBinding>(inflater,R.layout.fragment_create_game, container, false)
 
-        binding.viewmodel = gameDataViewModel
+        binding.viewModel = gameDataViewModel
 //        binding.lifecycleOwner = this
 
         if (gameDataViewModel.gameData.value != null) {
             if (gameDataViewModel.gameData.value!!.riddles.size > 0) {
-                binding.buttonSaveGame.isEnabled = true
+                binding.buttonGameSave.isEnabled = true
             }
 
             for (x in gameDataViewModel.gameData.value!!.riddles) {
@@ -67,7 +63,7 @@ class CreateGameFragment : Fragment() {
             }
         }
 
-        binding.buttonSaveGame.setOnClickListener { view: View ->
+        binding.buttonGameSave.setOnClickListener { view: View ->
             gameDataViewModel.reset()
             view.findNavController()
                 .navigate(R.id.menuFragment)
