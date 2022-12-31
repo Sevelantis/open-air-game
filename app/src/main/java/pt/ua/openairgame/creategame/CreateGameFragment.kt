@@ -16,6 +16,7 @@ import pt.ua.openairgame.model.GameDataViewModel
 
 class CreateGameFragment : Fragment() {
 
+
     private var _gameData: GameData? = null
     private val gameDataViewModel: GameDataViewModel by activityViewModels()
 

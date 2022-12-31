@@ -12,88 +12,143 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/logoImage"
+                android:layout_width="@dimen/content_width"
+                android:layout_height="@dimen/logo_height_half"
+                android:padding="4dp"
+                android:src="@drawable/ic_baseline_map_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/green_500"
+                app:strokeWidth="4dp" />
+
             <TextView
                 android:id="@+id/tvAddRiddleTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/add_new_riddle"
+                android:text="@string/riddle"
                 android:textSize="34sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/logoImage" />
 
-            <TextView
-                android:id="@+id/tvRiddleIndex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="#2"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAddRiddleTitle" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:id="@+id/constraintLayoutTextInputs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/margin_half"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvRiddleIndex">
+                app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
 
-                <EditText
-                    android:id="@+id/editTextRiddle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/text_of_riddle"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    android:textColorHint="#757575"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextAnswer"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputRiddle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
 
-                <EditText
-                    android:id="@+id/editTextAnswer"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:hint="@string/answer"
-                    android:importantForAutofill="no"
-                    android:inputType="textPersonName"
-                    android:minHeight="48dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    <EditText
+                        android:id="@+id/editTextRiddle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:hint="@string/riddle_question"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#7cff88"
+                        android:textSize="18sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputRiddleAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextRiddle" />
+                    app:layout_constraintTop_toBottomOf="@+id/textInputRiddle"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <EditText
+                        android:id="@+id/editTextAnswer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:ems="10"
+                        android:hint="@string/answer"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="#7cff88"
+                        android:textSize="18sp"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                </com.google.android.material.textfield.TextInputLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/buttonSaveRiddle"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="24dp"
-                android:text="Save riddle"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutButtons"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/margin_half"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextInputs">
 
-            <Button
-                android:id="@+id/buttonAddHint"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="24dp"
-                android:text="Add hint"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/buttonAddHint"
+                    android:layout_width="@dimen/content_width_smaller"
+                    android:layout_height="@dimen/elem_height_smaller"
+                    android:layout_margin="@dimen/margin_half"
+                    android:text="@string/add_photo_hint"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.496"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pb_colorComplete="@color/buttonComplete"
+                    app:pb_colorNormal="@color/buttonNormal"
+                    app:pb_colorPressed="@color/buttonPressed"
+                    app:pb_colorProgress="@color/buttonProgress"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textProgress="@string/loading" />
+
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/buttonSaveRiddle"
+                    android:layout_width="@dimen/content_width"
+                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_margin="@dimen/margin_half"
+                    android:text="@string/save_riddle"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:pb_colorComplete="@color/buttonComplete"
+                    app:pb_colorNormal="@color/buttonNormal"
+                    app:pb_colorPressed="@color/buttonPressed"
+                    app:pb_colorProgress="@color/buttonProgress"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textProgress="@string/loading" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

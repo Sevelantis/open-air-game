@@ -4,8 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <FrameLayout
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".auth.LoginFragment">
+        android:layout_height="match_parent"
+        tools:context=".auth.LoginFragment"
+        android:background="@color/beige_background"
+        >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,7 +57,6 @@
                     android:textSize="22sp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_text_input_layout"
