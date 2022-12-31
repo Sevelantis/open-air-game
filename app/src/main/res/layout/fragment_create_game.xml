@@ -28,6 +28,7 @@
                 android:src="@drawable/ic_baseline_map_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvCreateGameTitle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 app:strokeColor="@color/green_500"
@@ -42,6 +43,7 @@
                 android:paddingTop="@dimen/margin_quarter"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/constraintLayoutTextInputs"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/logoImage" />
 
@@ -49,10 +51,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayoutTextInputs"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="160dp"
                 android:layout_margin="@dimen/margin_half"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/recyclerViewRiddleList"
                 app:layout_constraintTop_toBottomOf="@+id/tvCreateGameTitle">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -112,79 +115,112 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayoutButtons"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_margin="@dimen/margin_half"
                 android:layout_height="0dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                android:fillViewport="true"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTextInputs">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayoutTextInputs"
+                >
 
-                <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/buttonGameShowMap"
-                    android:layout_width="@dimen/content_width_smaller"
-                    android:layout_height="@dimen/elem_height_smaller"
-                    android:layout_margin="@dimen/margin_half"
-                    android:text="@string/show_map"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/buttonGameSave"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.503"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:pb_colorComplete="@color/buttonComplete"
-                    app:pb_colorNormal="@color/buttonNormal"
-                    app:pb_colorPressed="@color/buttonPressed"
-                    app:pb_colorProgress="@color/buttonProgress"
-                    app:pb_textComplete="@string/success"
-                    app:pb_textProgress="@string/loading" />
-
-                <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/buttonGameNextStep"
-                    android:layout_width="@dimen/content_width_smaller"
-                    android:layout_height="@dimen/elem_height_smaller"
-                    android:layout_margin="@dimen/margin_half"
-                    android:text="@string/next_step"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/buttonGameShowMap"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.503"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0"
-                    app:pb_colorComplete="@color/buttonComplete"
-                    app:pb_colorNormal="@color/buttonNormal"
-                    app:pb_colorPressed="@color/buttonPressed"
-                    app:pb_colorProgress="@color/buttonProgress"
-                    app:pb_textComplete="@string/success"
-                    app:pb_textProgress="@string/loading" />
+                    android:orientation="vertical"
+                    android:scrollbars="vertical">
 
-                <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/buttonGameSave"
-                    android:layout_width="@dimen/content_width"
-                    android:layout_height="@dimen/elem_height_normal"
-                    android:layout_margin="@dimen/margin_half"
-                    android:layout_marginBottom="16dp"
-                    android:text="@string/save_game"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.508"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:pb_colorComplete="@color/buttonComplete"
-                    app:pb_colorNormal="@color/buttonNormal"
-                    app:pb_colorPressed="@color/buttonPressed"
-                    app:pb_colorProgress="@color/buttonProgress"
-                    app:pb_textComplete="@string/success"
-                    app:pb_textProgress="@string/loading" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewRiddleList"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_margin="@dimen/margin_half"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="8" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayoutButtons"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="@dimen/margin_half">
+
+                        <com.dd.processbutton.iml.ActionProcessButton
+                            android:id="@+id/buttonGameShowMap"
+                            android:layout_width="@dimen/content_width_smaller"
+                            android:layout_height="@dimen/elem_height_smaller"
+                            android:layout_margin="@dimen/margin_half"
+                            android:text="@string/show_map"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/buttonGameSave"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.503"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="1.0"
+                            app:pb_colorComplete="@color/buttonComplete"
+                            app:pb_colorNormal="@color/buttonNormal"
+                            app:pb_colorPressed="@color/buttonPressed"
+                            app:pb_colorProgress="@color/buttonProgress"
+                            app:pb_textComplete="@string/success"
+                            app:pb_textProgress="@string/loading" />
+
+                        <com.dd.processbutton.iml.ActionProcessButton
+                            android:id="@+id/buttonGameNextStep"
+                            android:layout_width="@dimen/content_width_smaller"
+                            android:layout_height="@dimen/elem_height_smaller"
+                            android:layout_margin="@dimen/margin_half"
+                            android:text="@string/next_step"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/buttonGameShowMap"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.503"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="1.0"
+                            app:pb_colorComplete="@color/buttonComplete"
+                            app:pb_colorNormal="@color/buttonNormal"
+                            app:pb_colorPressed="@color/buttonPressed"
+                            app:pb_colorProgress="@color/buttonProgress"
+                            app:pb_textComplete="@string/success"
+                            app:pb_textProgress="@string/loading" />
+
+                        <com.dd.processbutton.iml.ActionProcessButton
+                            android:id="@+id/buttonGameSave"
+                            android:layout_width="@dimen/content_width"
+                            android:layout_height="@dimen/elem_height_normal"
+                            android:layout_margin="@dimen/margin_half"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/save_game"
+                            android:textColor="@android:color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.508"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:pb_colorComplete="@color/buttonComplete"
+                            app:pb_colorNormal="@color/buttonNormal"
+                            app:pb_colorPressed="@color/buttonPressed"
+                            app:pb_colorProgress="@color/buttonProgress"
+                            app:pb_textComplete="@string/success"
+                            app:pb_textProgress="@string/loading" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

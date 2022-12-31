@@ -11,11 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -55,7 +53,7 @@ class AddRiddleFragment : Fragment() {
                 val location = Location("point A")
                 location.longitude = 0.0
                 location.latitude = 0.0
-                val riddle = Riddle(1, location, riddleText, answer)
+                val riddle = Riddle(location, riddleText, answer)
 
                 gameDataViewModel.addRiddle(riddle)
 
