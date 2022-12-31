@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -21,6 +22,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import pt.ua.openairgame.R
 import pt.ua.openairgame.databinding.FragmentAddRiddleBinding
+import pt.ua.openairgame.model.GameDataViewModel
 import pt.ua.openairgame.model.Riddle
 
 
@@ -30,6 +32,8 @@ class AddRiddleFragment : Fragment() {
     private var LOCATION_REQUEST_CODE = 10001
     private var fusedLocationProviderClient: FusedLocationProviderClient? = null
     private var currLocation: Location? = null
+
+    private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,10 +51,14 @@ class AddRiddleFragment : Fragment() {
             val answer = binding.editTextAnswer.text.toString()
 
             if (riddleText != "" && answer != "") {
-                val riddle = Riddle(1, currLocation!!, riddleText, answer)
-//                setFragmentResult("requestKey", bundleOf("bundleKey" to riddle))
+//                val riddle = Riddle(1, currLocation!!, riddleText, answer)
+                val location = Location("point A")
+                location.longitude = 0.0
+                location.latitude = 0.0
+                val riddle = Riddle(1, location, riddleText, answer)
 
-                // TODO Add riddle to game
+                gameDataViewModel.addRiddle(riddle)
+
                 view.findNavController()
                     .navigate(R.id.action_addRiddleFragment_to_createGameFragment)
             }
@@ -80,11 +88,6 @@ class AddRiddleFragment : Fragment() {
         val locationTask: Task<Location> = fusedLocationProviderClient!!.lastLocation
         locationTask.addOnSuccessListener { location: Location? ->
             if (location != null) {
-                //We have a location
-                Log.d(TAG, "onSuccess: $location")
-                Log.d(TAG, "onSuccess: " + location.latitude)
-                Log.d(TAG, "onSuccess: " + location.longitude)
-
                 currLocation = location
             } else {
                 Log.d(TAG, "onSuccess: Location was null...")

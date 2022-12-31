@@ -1,6 +1,7 @@
 package pt.ua.openairgame.creategame
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import pt.ua.openairgame.R
 import pt.ua.openairgame.databinding.FragmentCreateGameBinding
+import pt.ua.openairgame.model.GameData
 import pt.ua.openairgame.model.GameDataViewModel
 
 class CreateGameFragment : Fragment() {
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setFragmentResultListener("requestKey") { requestKey, bundle ->
-//            val result: Riddle = bundle.getParcelable<Riddle>("bundleKey")
-//
-//            Log.d("Tag", "onCreate: ${result!!.answer}, ${result!!.location.longitude}")
-//            // Do something with the result
-//        }
-//    }
-
+    private var _gameData: GameData? = null
     private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -37,15 +30,47 @@ class CreateGameFragment : Fragment() {
             false
         )
 
-//        Log.d("TAG", "onCreateView: ${gameDataViewModel.name()}")
+        binding.viewmodel = gameDataViewModel
+//        binding.lifecycleOwner = this
+
+        if (gameDataViewModel.gameData.value != null) {
+            if (gameDataViewModel.gameData.value!!.riddles.size > 0) {
+                binding.buttonSaveGame.isEnabled = true
+            }
+
+            for (x in gameDataViewModel.gameData.value!!.riddles) {
+                Log.d(x.index.toString(), "onCreateView: ${x.answer}")
+            }
+        }
 
         binding.buttonGameNextStep.setOnClickListener { view: View ->
             val name = binding.editTextGameName.text.toString()
             val desc = binding.editTextDescription.text.toString()
 
             if (name != "" && desc != "") {
-                view.findNavController().navigate(R.id.action_createGameFragment_to_addRiddleFragment)
+                if (gameDataViewModel.gameData.value != null) {
+                    if (gameDataViewModel.gameData.value!!.name == name
+                        && gameDataViewModel.gameData.value!!.description == desc
+                    ) {
+                        view.findNavController()
+                            .navigate(R.id.action_createGameFragment_to_addRiddleFragment)
+                    }
+                } else {
+                    val gameData = GameData(name, desc)
+                    if (_gameData != null) gameData.riddles = _gameData!!.riddles
+                    gameDataViewModel.setGameData(gameData)
+
+                    view.findNavController()
+                        .navigate(R.id.action_createGameFragment_to_addRiddleFragment)
+                }
+
             }
+        }
+
+        binding.buttonSaveGame.setOnClickListener { view: View ->
+            gameDataViewModel.reset()
+            view.findNavController()
+                .navigate(R.id.menuFragment)
         }
 
         return binding.root
