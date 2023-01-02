@@ -49,7 +49,7 @@ class JoinGameFragment : Fragment() {
                 Toast.makeText(activity, qrResult, Toast.LENGTH_LONG).show()
                 // pop stack
                 view?.findNavController()?.popBackStack()
-
+                // TODO send request to join the user to the game
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

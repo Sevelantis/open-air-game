@@ -14,13 +14,15 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import pt.ua.openairgame.databinding.FragmentMenuBinding
+import pt.ua.openairgame.model.GameDataViewModel
 
 
 class MenuFragment : Fragment() {
 
     private lateinit var binding : FragmentMenuBinding
-
+    private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +31,8 @@ class MenuFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentMenuBinding>(inflater, pt.ua.openairgame.R.layout.fragment_menu, container, false)
 
         setupButtonsVisibility()
-
         binding.buttonGameCreate.setOnClickListener{ view : View ->
+            gameDataViewModel.reset()
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->
@@ -43,7 +45,7 @@ class MenuFragment : Fragment() {
             showQr()
         }
         binding.buttonGameEnd.setOnClickListener{ view: View ->
-            // TODO send request to finish the game
+            // TODO send request to finish the game: set active to false,
         }
 
         return binding.root
@@ -56,6 +58,7 @@ class MenuFragment : Fragment() {
         if(isActiveGame()){
             binding.buttonGameCurrent.visibility = View.VISIBLE
             binding.buttonShowQr.visibility = View.VISIBLE
+//            binding.buttonGameCreate.visibility = View.INVISIBLE
         }
     }
 
@@ -68,6 +71,7 @@ class MenuFragment : Fragment() {
     }
 
     private fun getQrContent() : String{
+        // TODO send reuest to obtain game ID
         return "Slim Shady"
     }
 

@@ -4,12 +4,18 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.recyclerview.widget.RecyclerView
 import java.io.FileDescriptor
 import java.io.IOException
 
-class Util {
-
+fun uriToBitmap(mContext: Context, selectedFileUri: Uri): Bitmap? {
+    try {
+        val parcelFileDescriptor = mContext.contentResolver.openFileDescriptor(selectedFileUri, "r")
+        val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
+        val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+        parcelFileDescriptor.close()
+        return image
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+    return null
 }

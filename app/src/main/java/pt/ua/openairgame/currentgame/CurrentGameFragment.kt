@@ -1,35 +1,27 @@
 package pt.ua.openairgame.currentgame
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import androidx.fragment.app.activityViewModels
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.tasks.Task
+import com.google.android.gms.maps.model.MarkerOptions
 import pt.ua.openairgame.databinding.FragmentCurrentGameBinding
 import pt.ua.openairgame.model.GameData
+import pt.ua.openairgame.model.GameDataViewModel
 import java.util.*
 import kotlin.math.sqrt
 
@@ -38,16 +30,16 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
     private val TAG = "CurrentGameFragment"
-    private var LOCATION_REQUEST_CODE = 10001
-    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    private var currLocation: Location? = null
 
     private var sensorManager: SensorManager? = null
     private var acceleration = 0f
     private var currentAcceleration = 0f
     private var lastAcceleration = 0f
+    private var isMapSet: Boolean = false
 
-    private lateinit var gameData: GameData
+    private val gameDataViewModel: GameDataViewModel by activityViewModels()
+    private var gameData: GameData? = null
+    private lateinit var binding: FragmentCurrentGameBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,133 +57,79 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DataBindingUtil.inflate<FragmentCurrentGameBinding>(inflater, pt.ua.openairgame.R.layout.fragment_current_game, container, false)
+        binding = DataBindingUtil.inflate<FragmentCurrentGameBinding>(inflater, pt.ua.openairgame.R.layout.fragment_current_game, container, false)
 
         val mapFragment = childFragmentManager.findFragmentById(pt.ua.openairgame.R.id.fragmentCurrentGameMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
         return binding.root
     }
 
-    @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-        googleMap.isMyLocationEnabled = true
 
-        loadGame()
-
-//        val riddles = gameData.riddles
-//
-//        for (r: Riddle in riddles) {
-//            val latLng = LatLng(r.location.latitude, r.location.longitude)
-//            googleMap.addMarker(
-//                MarkerOptions()
-//                    .position(latLng)
-//                    .title(r.index.toString())
-//            )
-//        }
+        loadGameData()
+        addRiddleMarkersToMap()
     }
 
     override fun onStart() {
         super.onStart()
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            getLastLocation()
-        } else {
-            askLocationPermission()
+        gameDataViewModel.location.observe(viewLifecycleOwner) {
+            if (!isMapSet){
+                setupMap()
+                Log.d(TAG, "Setting map for location: $it")
+            }else{
+                Log.d(TAG, "Map was already set for location $it")
+            }
+        }
+        gameDataViewModel.updateLocation()
+    }
+
+    private fun loadGameData() {
+        // TODO request to get active game data
+        gameData = gameDataViewModel.gameData.value
+    }
+
+    private fun addRiddleMarkersToMap(){
+        if (gameData == null){
+            Log.d(TAG, "addRiddleMarkersToMap() -> gameData has not been initialized")
+            return
+        }
+        var cnt = 1
+        for (riddle in gameData?.riddles!!) {
+            val latLng = LatLng(riddle.location.latitude, riddle.location.longitude)
+            googleMap.addMarker(MarkerOptions().position(latLng).title(cnt.toString()))
+            Log.d(TAG, "marker[$cnt] added: $latLng")
+            cnt += 1
         }
     }
+
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
-        val locationTask: Task<Location> = fusedLocationProviderClient!!.lastLocation
-        locationTask.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                //We have a location
-                Log.d(TAG, "onSuccess: $location")
-                Log.d(TAG, "onSuccess: " + location.latitude)
-                Log.d(TAG, "onSuccess: " + location.longitude)
-
-                currLocation = location
-                setCameraPosition()
-            } else {
-                Log.d(TAG, "onSuccess: Location was null...")
-            }
-        }
-        locationTask.addOnFailureListener { e ->
-            Log.e(
-                TAG,
-                "onFailure: " + e.localizedMessage
-            )
-        }
+    private fun setupMap(){
+        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        googleMap.isMyLocationEnabled = true
+        setupCameraPosition()
     }
 
-    private fun askLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    requireActivity(),
-                    ACCESS_FINE_LOCATION
-                )
-            ) {
-                Log.d(TAG, "askLocationPermission: you should show an alert dialog...")
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(ACCESS_FINE_LOCATION),
-                    LOCATION_REQUEST_CODE
-                )
-            } else {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(ACCESS_FINE_LOCATION),
-                    LOCATION_REQUEST_CODE
-                )
-            }
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == LOCATION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-                getLastLocation()
-            } else {
-                //Permission not granted
-            }
-        }
-    }
-
-    private fun setCameraPosition() {
-        if (currLocation != null) {
-            val latitude: Double = currLocation!!.latitude
-            val longitude: Double = currLocation!!.longitude
+    private fun setupCameraPosition() {
+        val location = gameDataViewModel.location.value
+        Log.d(TAG, "Setting camera position for location: ${location}")
+        if (location != null) {
+            val latitude: Double = location.latitude
+            val longitude: Double = location.longitude
             val camPos = CameraPosition.Builder()
                 .target(LatLng(latitude, longitude))
-                .zoom(18f)
-                .bearing(currLocation!!.bearing)
+                .zoom(22f)
+                .bearing(location.bearing)
                 .build()
             val camUpd3 = CameraUpdateFactory.newCameraPosition(camPos)
 
+            Log.d(TAG, "Setting camera position: $camPos")
             googleMap.animateCamera(camUpd3)
+            isMapSet = true
         }
     }
 
-    fun loadGame() {
-//        gameData = ?
-    }
 
     private val sensorListener: SensorEventListener = object : SensorEventListener {
         override fun onSensorChanged(event: SensorEvent) {

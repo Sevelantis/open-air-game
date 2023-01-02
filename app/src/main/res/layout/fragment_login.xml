@@ -82,7 +82,7 @@
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
                     android:textSize="22sp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.dd.processbutton.iml.ActionProcessButton

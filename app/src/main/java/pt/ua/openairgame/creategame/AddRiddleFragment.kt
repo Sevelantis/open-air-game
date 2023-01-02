@@ -1,13 +1,9 @@
 package pt.ua.openairgame.creategame
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -16,23 +12,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.widget.TextView
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.Task
 import pt.ua.openairgame.R
 import pt.ua.openairgame.databinding.FragmentAddRiddleBinding
 import pt.ua.openairgame.model.GameDataViewModel
 import pt.ua.openairgame.model.Riddle
+import pt.ua.openairgame.uriToBitmap
 import java.io.File
-import java.io.FileDescriptor
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,15 +35,12 @@ import java.util.*
 class AddRiddleFragment : Fragment() {
 
     private val TAG = "AddRiddleFragment"
-    private var LOCATION_REQUEST_CODE = 10001
-    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
-    private var currLocation: Location? = null
     private val CAMERA_REQUEST = 1888
-    private val MY_CAMERA_PERMISSION_CODE = 100
     private lateinit var currentPhotoPath: String
     private lateinit var photoURI: Uri
     private var bitmapPhotoHint: Bitmap? = null
     private lateinit var imageViewPhoto : ImageView
+    private lateinit var binding : FragmentAddRiddleBinding
 
     private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
@@ -57,48 +48,37 @@ class AddRiddleFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentAddRiddleBinding>(
-            inflater,
-            R.layout.fragment_add_riddle,
-            container,
-            false
-        )
+        binding = DataBindingUtil.inflate<FragmentAddRiddleBinding>(inflater,R.layout.fragment_add_riddle, container, false)
+        imageViewPhoto = binding.imageViewPhotoHint
 
         binding.buttonSaveRiddle.setOnClickListener { view: View ->
-            val riddleText = binding.editTextRiddle.text.toString()
-            val answer = binding.editTextAnswer.text.toString()
-
-            if (riddleText != "" && answer != "") {
-                val location = Location("point A")
-                location.longitude = 0.0
-                location.latitude = 0.0
-                val riddle = Riddle(location, riddleText, answer, bitmapPhotoHint)
-
-                gameDataViewModel.addRiddle(riddle)
-
-                view.findNavController()
-                    .navigate(R.id.action_addRiddleFragment_to_createGameFragment)
-            }
+            saveRiddle(view)
         }
 
-        imageViewPhoto = binding.imageViewPhotoHint
         binding.buttonAddHint.setOnClickListener {view : View ->
             dispatchTakePictureIntent()
         }
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        setupHideKeyboard()
 
         return binding.root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        // this code runs whenever make photo intent activity exits
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            bitmapPhotoHint = uriToBitmap(photoURI)
+            bitmapPhotoHint = uriToBitmap(requireContext(), photoURI)
             Log.d(TAG, "bitmap: ${bitmapPhotoHint.toString()}")
             Log.d(TAG, "photoUri: ${photoURI}")
             Log.d(TAG, "currentPhotoPath: ${currentPhotoPath}")
             imageViewPhoto.setImageBitmap(bitmapPhotoHint)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        gameDataViewModel.updateLocation()
+        Log.d(TAG, "Riddle location: ${gameDataViewModel.location.value.toString()}")
     }
 
     private fun dispatchTakePictureIntent() {
@@ -127,7 +107,7 @@ class AddRiddleFragment : Fragment() {
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
-        Log.d("AddRiddleFragmet", storageDir.toString())
+        Log.d(TAG, storageDir.toString())
         return File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
@@ -137,90 +117,35 @@ class AddRiddleFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            getLastLocation()
-        } else {
-            askLocationPermission()
-        }
-    }
+    private fun saveRiddle(view: View){
+        val riddleText = binding.editTextRiddle.text.toString()
+        val answer = binding.editTextAnswer.text.toString()
 
-    private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
-        try {
-            val parcelFileDescriptor = requireContext().contentResolver.openFileDescriptor(selectedFileUri, "r")
-            val fileDescriptor: FileDescriptor = parcelFileDescriptor!!.fileDescriptor
-            val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
-            parcelFileDescriptor.close()
-            return image
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return null
-    }
+        if (riddleText != "" && answer != "") {
+            gameDataViewModel.updateLocation()
+            val location = gameDataViewModel.location.value
+            Log.d(TAG, "Riddle location on save: $location")
+            val riddle = location?.let { Riddle(it, riddleText, answer, bitmapPhotoHint) }
 
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
-        val locationTask: Task<Location> = fusedLocationProviderClient!!.lastLocation
-        locationTask.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                currLocation = location
-            } else {
-                Log.d(TAG, "onSuccess: Location was null...")
+            if (riddle != null) {
+                gameDataViewModel.addRiddle(riddle)
             }
-        }
-        locationTask.addOnFailureListener { e ->
-            Log.e(
-                TAG,
-                "onFailure: " + e.localizedMessage
-            )
+
+            view.findNavController().navigate(R.id.action_addRiddleFragment_to_createGameFragment)
         }
     }
 
-    private fun askLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
-                requireActivity(),
-                ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    requireActivity(),
-                    ACCESS_FINE_LOCATION
-                )
-            ) {
-                Log.d(TAG, "askLocationPermission: you should show an alert dialog...")
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(ACCESS_FINE_LOCATION),
-                    LOCATION_REQUEST_CODE
-                )
-            } else {
-                ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(ACCESS_FINE_LOCATION),
-                    LOCATION_REQUEST_CODE
-                )
+    private fun setupHideKeyboard(){
+        binding.editTextAnswer.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // hide keyboard after confirming the riddle answer
+                val imm: InputMethodManager =
+                    v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+                return@OnEditorActionListener true
             }
-        }
+            false
+        })
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == LOCATION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
-                getLastLocation()
-            } else {
-                //Permission not granted
-            }
-        }
-    }
 }
