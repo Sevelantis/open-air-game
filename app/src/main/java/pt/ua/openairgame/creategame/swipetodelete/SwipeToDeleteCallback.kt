@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log.d
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,7 +23,7 @@ abstract class SwipeToDeleteCallback internal constructor(var mContext: Context)
 
     init {
         mBackground = ColorDrawable()
-        backgroundColor = Color.parseColor("#b80f0a")
+        backgroundColor = Color.parseColor("#8B0000")
         mClearPaint = Paint()
         mClearPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
         deleteDrawable = R.drawable.ic_delete.toDrawable()

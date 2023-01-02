@@ -21,6 +21,7 @@
     <dimen name="icon_size">64dp</dimen>
     <dimen name="content_width">350dp</dimen>
     <dimen name="content_width_smaller">250dp</dimen>
+    <dimen name="content_width_half">175dp</dimen>
     <dimen name="logo_height">200dp</dimen>
     <dimen name="logo_height_half">100dp</dimen>
     <dimen name="title_text_size">20sp</dimen>

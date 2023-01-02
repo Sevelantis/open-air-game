@@ -19,11 +19,16 @@ import pt.ua.openairgame.databinding.FragmentMenuBinding
 
 class MenuFragment : Fragment() {
 
+    private lateinit var binding : FragmentMenuBinding
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentMenuBinding>(inflater, pt.ua.openairgame.R.layout.fragment_menu, container, false)
+        binding = DataBindingUtil.inflate<FragmentMenuBinding>(inflater, pt.ua.openairgame.R.layout.fragment_menu, container, false)
+
+        setupButtonsVisibility()
 
         binding.buttonGameCreate.setOnClickListener{ view : View ->
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
@@ -37,8 +42,29 @@ class MenuFragment : Fragment() {
         binding.buttonShowQr.setOnClickListener{ view : View ->
             showQr()
         }
+        binding.buttonGameEnd.setOnClickListener{ view: View ->
+            // TODO send request to finish the game
+        }
 
         return binding.root
+    }
+
+    private fun setupButtonsVisibility(){
+        if(isOwner()){
+            binding.buttonGameEnd.visibility = View.VISIBLE
+        }
+        if(isActiveGame()){
+            binding.buttonGameCurrent.visibility = View.VISIBLE
+            binding.buttonShowQr.visibility = View.VISIBLE
+        }
+    }
+
+    private fun isOwner(): Boolean{
+        return true
+    }
+
+    private fun isActiveGame(): Boolean{
+        return true
     }
 
     private fun getQrContent() : String{

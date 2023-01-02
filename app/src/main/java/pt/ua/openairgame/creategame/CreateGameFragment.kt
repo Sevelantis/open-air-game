@@ -2,7 +2,6 @@ package pt.ua.openairgame.creategame
 
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.v
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import pt.ua.openairgame.creategame.swipetodelete.SwipeToDeleteCallback
 import pt.ua.openairgame.databinding.FragmentCreateGameBinding
 import pt.ua.openairgame.model.GameData
 import pt.ua.openairgame.model.GameDataViewModel
-import pt.ua.openairgame.model.Riddle
 
 class CreateGameFragment : Fragment() {
     private val TAG = "CreateGameFragment"
