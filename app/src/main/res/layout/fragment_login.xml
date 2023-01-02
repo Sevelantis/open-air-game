@@ -20,7 +20,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/logoImage"
-                android:layout_width="@dimen/content_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/logo_height"
                 android:layout_marginTop="@dimen/margin"
                 android:padding="4dp"
@@ -82,7 +82,7 @@
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
                     android:textSize="22sp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="SpeakableTextPresentCheck"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.dd.processbutton.iml.ActionProcessButton

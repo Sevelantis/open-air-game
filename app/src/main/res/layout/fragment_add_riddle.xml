@@ -129,6 +129,17 @@
                     app:pb_textComplete="@string/success"
                     app:pb_textProgress="@string/loading" />
 
+                <ImageView
+                    android:id="@+id/imageViewPhotoHint"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/margin_half"
+                    app:layout_constraintTop_toBottomOf="@id/buttonAddHint"
+                    app:layout_constraintBottom_toTopOf="@id/buttonSaveRiddle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                </ImageView>
+
                 <com.dd.processbutton.iml.ActionProcessButton
                     android:id="@+id/buttonSaveRiddle"
                     android:layout_width="@dimen/content_width"
