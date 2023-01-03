@@ -102,7 +102,7 @@ class GameDataViewModel : ViewModel() {
 
     fun isUserAtCurrentRiddleLocation() : Boolean?{
         updateLocation()
-        val radiusMeters = 5
+        val radiusMeters = 15
         val location1 = location.value
         val location2 = currentRiddle!!.location
         if (location1 != null) {

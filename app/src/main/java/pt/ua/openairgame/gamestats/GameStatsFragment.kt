@@ -61,10 +61,17 @@ class GameStatsFragment : Fragment() {
         }
 
         binding.buttonCloseStats.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.menuFragment)
+            finishGame(view)
         }
 
         return binding.root
+    }
+
+    private fun finishGame(view : View){
+        gameDataViewModel.reset()
+        gameDataViewModel.setHasActiveGame(false)
+        gameDataViewModel.setIsGameOwner(false)
+        view.findNavController().popBackStack(R.id.createGameFragment, true)
     }
 
 }
