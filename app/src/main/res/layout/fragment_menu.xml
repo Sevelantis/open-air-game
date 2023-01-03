@@ -100,19 +100,17 @@
                 android:textColor="@android:color/white"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/buttonGameEnd"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.384"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/buttonGameCurrent"
-                app:layout_constraintVertical_bias="0.0"
                 app:pb_colorComplete="@color/buttonComplete"
                 app:pb_colorNormal="@color/buttonNormal"
                 app:pb_colorPressed="@color/buttonPressed"
                 app:pb_colorProgress="@color/buttonProgress"
                 app:pb_textComplete="@string/success"
                 app:pb_textProgress="@string/loading"
-                android:visibility="invisible"
 
                 />
 
@@ -137,6 +135,29 @@
                 app:pb_colorProgress="@color/buttonProgress"
                 app:pb_textComplete="@string/success"
                 app:pb_textProgress="@string/loading" />
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/buttonSwitchRole"
+                android:layout_width="340dp"
+                android:layout_height="@dimen/elem_height_smaller"
+                android:layout_margin="@dimen/margin"
+                android:text="@string/switch_role"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="@+id/buttonGameEnd"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonShowQr"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>

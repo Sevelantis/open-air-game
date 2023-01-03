@@ -46,6 +46,7 @@ class SolveRiddleFragment : Fragment() {
             if(isAnswerCorrect()){
                 gameDataViewModel.setScore(gameDataViewModel.score!! + goodAnswerReward)
                 toast(requireContext(), "Good answer!. You earned $goodAnswerReward points!", Toast.LENGTH_LONG)
+                unlockNextRiddle(view)
             }else{
                 gameDataViewModel.setScore(gameDataViewModel.score!! - wrongAnswerPenalty)
                 toast(requireContext(), "Wrong answer! You lose $wrongAnswerPenalty points!", Toast.LENGTH_LONG)
