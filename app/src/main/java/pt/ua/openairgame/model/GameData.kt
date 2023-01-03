@@ -13,6 +13,11 @@ import com.google.android.gms.tasks.Task
 
 class GameData(val name: String, val description: String?) {
     var riddles: ArrayList<Riddle> = ArrayList()
+    var user : User? = null
+    var isUserCreatingGame : Boolean = false
+    var currentRiddleIndex : Int = 1
+    var currentRiddle : Riddle? = null
+    var score : Int = 500
 }
 
 class GameDataViewModel : ViewModel() {
@@ -30,11 +35,81 @@ class GameDataViewModel : ViewModel() {
         _gameData = MutableLiveData<GameData>()
     }
 
+    fun setUser(email : String){
+        _gameData.value?.user = User(email)
+    }
+
+    fun setIsUserCreatingGame(value : Boolean){
+        _gameData.value?.isUserCreatingGame = value
+    }
+
+    fun isUserCreatingGame() : Boolean? {
+        return _gameData.value?.isUserCreatingGame
+    }
+
+    fun isGameOwner(): Boolean{
+        // TODO check if current user is the game owner
+        return true
+    }
+
+    fun hasActiveGame(): Boolean{
+        // TODO check if current user has an active game
+        return true
+    }
+
+    fun setScore(score : Int){
+        _gameData.value?.score = score
+    }
+
+    fun nextRiddle(){
+        _gameData.value?.currentRiddleIndex?.plus(1)!!
+        _gameData.value?.riddles?.let { setCurrentRiddle(it[currentRiddleIndex!! - 1]) }
+    }
+
+    fun setCurrentRiddle(riddle: Riddle){
+        _gameData.value?.currentRiddle = riddle
+    }
+
+    fun setupFirstRiddleAsCurrent(){
+        setCurrentRiddle(_gameData.value?.riddles!![0])
+    }
+
+    fun isLastRiddle() : Boolean{
+        Log.d(TAG, "Is last riddle[${riddlesCounter == currentRiddleIndex}]? Riddles counter: $riddlesCounter, currentRidleIndex: $currentRiddleIndex")
+        return riddlesCounter == currentRiddleIndex
+    }
+
+    fun isUserAtCurrentRiddleLocation() : Boolean?{
+        updateLocation()
+        val radiusMeters = 5
+        val location1 = location.value
+        val location2 = currentRiddle!!.location
+        if (location1 != null) {
+            val distance = location1.distanceTo(location2)
+            if(distance < radiusMeters){
+                return true
+            }
+        }
+        return false
+    }
+
     val gameData: LiveData<GameData>
         get() = _gameData
 
     val location: LiveData<Location>
         get() = _location
+
+    val riddlesCounter: Int
+        get() = _gameData.value?.riddles!!.size + 1
+
+    val currentRiddleIndex : Int?
+        get() = _gameData.value?.currentRiddleIndex
+
+    val currentRiddle : Riddle?
+        get() = _gameData.value?.currentRiddle
+
+    val score : Int?
+        get() = _gameData.value?.score
 
     @SuppressLint("NullSafeMutableLiveData")
     fun addRiddle(riddle: Riddle) {

@@ -29,6 +29,7 @@ class LoginFragment : Fragment() {
 
         binding.buttonSignIn.setOnClickListener{ view : View ->
             // TODO send login user request
+            gameDataViewModel.setUser("mobilecomputing@ua.pt")
             view.findNavController().navigate(R.id.action_loginFragment_to_menuFragment)
         }
         binding.buttonSignUp.setOnClickListener { view: View ->

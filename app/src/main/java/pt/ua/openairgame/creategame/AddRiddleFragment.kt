@@ -51,6 +51,8 @@ class AddRiddleFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentAddRiddleBinding>(inflater,R.layout.fragment_add_riddle, container, false)
         imageViewPhoto = binding.imageViewPhotoHint
 
+        binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter}"
+
         binding.buttonSaveRiddle.setOnClickListener { view: View ->
             saveRiddle(view)
         }
@@ -59,8 +61,14 @@ class AddRiddleFragment : Fragment() {
             dispatchTakePictureIntent()
         }
         setupHideKeyboard()
+        mockRiddleData()
 
         return binding.root
+    }
+
+    private fun mockRiddleData(){
+        binding.editTextRiddle.setText("The highest building in the world?")
+        binding.editTextAnswer.setText("Burj Khalifa")
     }
 
     @Deprecated("Deprecated in Java")

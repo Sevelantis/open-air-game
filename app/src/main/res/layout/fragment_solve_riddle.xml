@@ -16,7 +16,7 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/logoImage"
                 android:layout_width="@dimen/content_width"
-                android:layout_height="@dimen/logo_height_half"
+                android:layout_height="@dimen/elem_height_smaller"
                 android:layout_marginTop="@dimen/margin"
                 android:padding="4dp"
                 android:src="@drawable/ic_baseline_map_24"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/riddle"
-                android:textSize="34sp"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/logoImage" />
@@ -48,31 +48,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvAddRiddleTitle">
 
-                <TextView
-                    android:id="@+id/textViewScore"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:hint="@string/score"
-                    android:inputType="text"
-                    android:maxLines="10"
-                    android:padding="@dimen/margin"
-                    android:textColor="@color/black"
-                    android:textColorHighlight="#7cff88"
-                    android:textSize="22sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewRiddle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
 
                 <TextView
-                    android:id="@+id/textViewRiddle"
+                    android:id="@+id/textViewQuestion"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/elem_height_normal"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:ems="10"
@@ -82,11 +62,12 @@
                     android:padding="@dimen/margin"
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
-                    android:textSize="22sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="SpeakableTextPresentCheck"
-                    tools:layout_editor_absoluteY="62dp" />
+                    tools:layout_editor_absoluteY="1dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputRiddleAnswer"
@@ -95,7 +76,7 @@
                     android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewRiddle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewQuestion"
                     app:layout_constraintVertical_bias="0.0">
 
                     <EditText
@@ -151,8 +132,9 @@
                     android:layout_width="235dp"
                     android:layout_height="@dimen/elem_height_smaller"
                     android:layout_centerHorizontal="true"
-                    android:layout_margin="@dimen/margin_half"
                     android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin_half"
+                    android:layout_marginTop="4dp"
                     android:ems="10"
                     android:hint="@string/hint_penalty"
                     android:inputType="text"
@@ -160,16 +142,17 @@
                     android:padding="@dimen/margin_half"
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.543"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonHint"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/textViewRetries"
-                    android:layout_width="307dp"
-                    android:layout_height="@dimen/elem_height_normal"
+                    android:layout_width="160dp"
+                    android:layout_height="@dimen/elem_height_smaller"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/margin_half"
@@ -180,10 +163,11 @@
                     android:padding="@dimen/margin_half"
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
-                    android:textSize="42sp"
+                    android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/buttonCheckAnswer"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:ignore="SpeakableTextPresentCheck" />
 

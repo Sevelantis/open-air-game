@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import pt.ua.openairgame.databinding.FragmentMenuBinding
 import pt.ua.openairgame.model.GameDataViewModel
+import pt.ua.openairgame.toastBitmap
 
 
 class MenuFragment : Fragment() {
@@ -33,6 +34,7 @@ class MenuFragment : Fragment() {
         setupButtonsVisibility()
         binding.buttonGameCreate.setOnClickListener{ view : View ->
             gameDataViewModel.reset()
+            gameDataViewModel.setIsUserCreatingGame(true)
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->
@@ -45,45 +47,30 @@ class MenuFragment : Fragment() {
             showQr()
         }
         binding.buttonGameEnd.setOnClickListener{ view: View ->
-            // TODO send request to finish the game: set active to false,
+            // TODO send request to finish the game: set active to false, deregister all affected users from the game
         }
 
         return binding.root
     }
 
     private fun setupButtonsVisibility(){
-        if(isOwner()){
+        if(gameDataViewModel.isGameOwner()){
             binding.buttonGameEnd.visibility = View.VISIBLE
         }
-        if(isActiveGame()){
+        if(gameDataViewModel.hasActiveGame()){
             binding.buttonGameCurrent.visibility = View.VISIBLE
             binding.buttonShowQr.visibility = View.VISIBLE
 //            binding.buttonGameCreate.visibility = View.INVISIBLE
         }
     }
 
-    private fun isOwner(): Boolean{
-        return true
-    }
-
-    private fun isActiveGame(): Boolean{
-        return true
-    }
-
     private fun getQrContent() : String{
-        // TODO send reuest to obtain game ID
+        // TODO send request to obtain game ID
         return "Slim Shady"
     }
 
     private fun showQr(){
-        val bitmap = generateQrBitmap(getQrContent())
-        val toast = Toast(context)
-        val imageViewQr = ImageView(context)
-        imageViewQr.setImageBitmap(bitmap)
-        toast.view = imageViewQr
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.duration = Toast.LENGTH_LONG
-        toast.show()
+        generateQrBitmap(getQrContent())?.let { toastBitmap(requireContext(), it) }
     }
 
     private fun generateQrBitmap(content : String): Bitmap? {

@@ -25,6 +25,7 @@
     <string name="riddle_question">Riddle question?</string>
     <string name="score">Score: 500</string>
     <string name="hint_penalty">Hint penalty: 100 points</string>
+    <string name="wrong_answer_penalty">Wrong answer penalty: 100 points</string>
     <string name="retries">Retries left: 3</string>
     <string name="game_description">Game description</string>
     <string name="answer">Answer</string>
