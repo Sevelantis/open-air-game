@@ -5,6 +5,7 @@
     <string name="sign_up">Sign up</string>
     <string name="sign_in">Sign in</string>
     <string name="show_qr">Show your game\'s QR</string>
+    <string name="switch_role">Become Player</string>
     <string name="end_game">End Game</string>
     <string name="password">Password</string>
     <string name="e_mail">E-mail</string>

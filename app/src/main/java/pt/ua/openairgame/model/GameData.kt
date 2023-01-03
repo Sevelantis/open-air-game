@@ -18,7 +18,6 @@ import java.time.LocalDateTime
 class GameData(val name: String, val description: String?) {
     var riddles: ArrayList<Riddle> = ArrayList()
     var user : User? = null
-    var isUserCreatingGame : Boolean = false
     var currentRiddleIndex : Int = 1
     var currentRiddle : Riddle? = null
     var score : Int = 500
@@ -28,6 +27,9 @@ class GameData(val name: String, val description: String?) {
     var distance: Int? = null
     val calories: Int?
             get() = steps?.times(450)
+    var isUserCreatingGame : Boolean = false
+    var isGameOwner : Boolean = false
+    var hasActiveGame : Boolean = false
 }
 
 class GameDataViewModel : ViewModel() {
@@ -57,14 +59,22 @@ class GameDataViewModel : ViewModel() {
         return _gameData.value?.isUserCreatingGame
     }
 
-    fun isGameOwner(): Boolean{
-        // TODO check if current user is the game owner
-        return true
+    fun isGameOwner(): Boolean?{
+        // TODO send request to check if current user is the game owner
+        return _gameData.value?.isGameOwner
     }
 
-    fun hasActiveGame(): Boolean{
-        // TODO check if current user has an active game
-        return true
+    fun setGameOwner(value:Boolean){
+        _gameData.value?.isGameOwner = value
+    }
+
+    fun hasActiveGame(): Boolean?{
+        // TODO send request to check if current user has an active game
+        return _gameData.value?.hasActiveGame
+    }
+
+    fun setHasActiveGame(value:Boolean){
+        _gameData.value?.hasActiveGame = value
     }
 
     fun setScore(score : Int){
@@ -72,11 +82,12 @@ class GameDataViewModel : ViewModel() {
     }
 
     fun nextRiddle(){
-        _gameData.value?.currentRiddleIndex?.plus(1)!!
+        _gameData.value?.currentRiddleIndex = _gameData.value?.currentRiddleIndex?.plus(1)!!
         _gameData.value?.riddles?.let { setCurrentRiddle(it[currentRiddleIndex!! - 1]) }
+        Log.d(TAG, "(nextRiddle): currentRiddle: $currentRiddle")
     }
 
-    fun setCurrentRiddle(riddle: Riddle){
+    private fun setCurrentRiddle(riddle: Riddle){
         _gameData.value?.currentRiddle = riddle
     }
 
@@ -85,11 +96,11 @@ class GameDataViewModel : ViewModel() {
     }
 
     fun isLastRiddle() : Boolean{
-        Log.d(TAG, "Is last riddle[${riddlesCounter == currentRiddleIndex}]? Riddles counter: $riddlesCounter, currentRidleIndex: $currentRiddleIndex")
+        Log.d(TAG, "Is last riddle[${riddlesCounter == currentRiddleIndex}]? Riddles counter: $riddlesCounter, currentRiddleIndex: $currentRiddleIndex")
         return riddlesCounter == currentRiddleIndex
     }
 
-    fun isUserAtCurrentRiddleLocation() : Boolean {
+    fun isUserAtCurrentRiddleLocation() : Boolean?{
         updateLocation()
         val radiusMeters = 5
         val location1 = location.value

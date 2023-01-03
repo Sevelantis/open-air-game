@@ -3,7 +3,6 @@ package pt.ua.openairgame.menu
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import pt.ua.openairgame.databinding.FragmentMenuBinding
 import pt.ua.openairgame.model.GameDataViewModel
@@ -49,18 +46,34 @@ class MenuFragment : Fragment() {
         binding.buttonGameEnd.setOnClickListener{ view: View ->
             // TODO send request to finish the game: set active to false, deregister all affected users from the game
         }
+        binding.buttonSwitchRole.setOnClickListener { view : View ->
+            switchRole()
+        }
 
         return binding.root
     }
 
-    private fun setupButtonsVisibility(){
-        if(gameDataViewModel.isGameOwner()){
-            binding.buttonGameEnd.visibility = View.VISIBLE
+    private fun switchRole(){
+        var btnText = ""
+        if(gameDataViewModel.isGameOwner() == true){
+            gameDataViewModel.setGameOwner(false)
+            btnText = "Become Owner"
+        }else{
+            gameDataViewModel.setGameOwner(true)
+            btnText = "Become Player"
         }
-        if(gameDataViewModel.hasActiveGame()){
+        binding.buttonSwitchRole.text = btnText
+    }
+
+    private fun setupButtonsVisibility(){
+        if(gameDataViewModel.isGameOwner() == true){
+            binding.buttonGameEnd.visibility = View.VISIBLE
+            binding.buttonSwitchRole.visibility = View.VISIBLE
+        }
+        if(gameDataViewModel.hasActiveGame() == true){
             binding.buttonGameCurrent.visibility = View.VISIBLE
             binding.buttonShowQr.visibility = View.VISIBLE
-//            binding.buttonGameCreate.visibility = View.INVISIBLE
+            binding.buttonGameCreate.visibility = View.INVISIBLE
         }
     }
 

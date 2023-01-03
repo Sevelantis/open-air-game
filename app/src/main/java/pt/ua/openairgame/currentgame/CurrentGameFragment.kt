@@ -2,6 +2,7 @@ package pt.ua.openairgame.currentgame
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
 import android.hardware.Sensor
@@ -96,7 +97,7 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
 
         mLocationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 500)
             .setWaitForAccurateLocation(true)
-            .setMinUpdateIntervalMillis(100)
+            .setMinUpdateIntervalMillis(500)
             .setMaxUpdateDelayMillis(1000)
             .build()
 
@@ -159,10 +160,11 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
                 .snippet(snippet)
                 .icon(getNiceRandomMarkerIcon())
 
-            if(gameDataViewModel.isUserCreatingGame() == true || gameDataViewModel.isGameOwner()){
+            if(gameDataViewModel.isUserCreatingGame() == true || gameDataViewModel.isGameOwner() == true){
                 Log.d(TAG, "Marker[$cnt] added (visible): $position," +
                         "(User is creating game or is the game owner. Allowing to see all the markers)")
             }else if(cnt == gameDataViewModel.currentRiddleIndex){
+                markerOptions.snippet("")
                 Log.d(TAG, "Marker[$cnt] added (visible): $position")
             }else{
                 markerOptions.visible(false)
@@ -191,19 +193,24 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
                 snippet.setTextColor(Color.GRAY)
                 snippet.text = marker.snippet
 
-                var cnt = 1
-                val photoHint = ImageView(requireContext())
-                for (riddle in gameDataViewModel.getRiddles()!!) {
-                    if(marker.title == "Riddle #${cnt}"){
-                        Log.d(TAG, "Adding marker photo hint preview for Riddle: ${marker.title}")
-                        snippet.text = marker.snippet + "\nPhoto Hint:"
-                        photoHint.setImageBitmap(riddle.bitmapPhotoHint?.let { resizeBitmap(it, requireActivity()) })
+                var photoHint : ImageView? = null
+                if(gameDataViewModel.isGameOwner() == true){
+                    var cnt = 1
+                    photoHint = ImageView(requireContext())
+                    for (riddle in gameDataViewModel.getRiddles()!!) {
+                        if(marker.title == "Riddle #${cnt}"){
+                            Log.d(TAG, "Adding marker photo hint preview for Riddle: ${marker.title}")
+                            snippet.text = "${marker.snippet}\nPhoto Hint:"
+                            photoHint.setImageBitmap(riddle.bitmapPhotoHint?.let { resizeBitmap(it, requireActivity()) })
+                        }
+                        cnt += 1
                     }
-                    cnt += 1
                 }
                 info.addView(title)
                 info.addView(snippet)
-                info.addView(photoHint)
+                if(photoHint != null){
+                    info.addView(photoHint)
+                }
                 return info
             }
         })
@@ -249,9 +256,9 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
                     toast(requireContext(), "Unlocked: Riddle #${gameDataViewModel.currentRiddleIndex}", Toast.LENGTH_LONG)
                     view?.findNavController()?.navigate(pt.ua.openairgame.R.id.action_currentGameFragment_to_solveRiddleFragment)
                 }else{
-                    isShakeDetected = false
                     toast(requireContext(), "There is no riddle here!", Toast.LENGTH_LONG)
                 }
+                isShakeDetected = false
             }
         }
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
