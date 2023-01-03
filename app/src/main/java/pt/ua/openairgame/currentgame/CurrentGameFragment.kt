@@ -74,8 +74,6 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = DataBindingUtil.inflate<FragmentCurrentGameBinding>(inflater, pt.ua.openairgame.R.layout.fragment_current_game, container, false)
 
-        gameDataViewModel.setupFirstRiddle()
-
         val mapFragment = childFragmentManager.findFragmentById(pt.ua.openairgame.R.id.fragmentCurrentGameMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         return binding.root
@@ -104,6 +102,9 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     private fun loadGameData() {
         // TODO request to get active game data
         gameData = gameDataViewModel.gameData.value
+        if (gameData != null){
+            gameDataViewModel.setupFirstRiddleAsCurrent()
+        }
     }
 
     private fun putRiddleMarkersOnTheMap(){

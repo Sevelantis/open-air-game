@@ -3,7 +3,6 @@ package pt.ua.openairgame.model
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.Location.distanceBetween
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
-import pt.ua.openairgame.distanceLocation
 
 class GameData(val name: String, val description: String?) {
     var riddles: ArrayList<Riddle> = ArrayList()
@@ -73,7 +71,7 @@ class GameDataViewModel : ViewModel() {
         _gameData.value?.currentRiddle = riddle
     }
 
-    fun setupFirstRiddle(){
+    fun setupFirstRiddleAsCurrent(){
         setCurrentRiddle(_gameData.value?.riddles!![0])
     }
 
