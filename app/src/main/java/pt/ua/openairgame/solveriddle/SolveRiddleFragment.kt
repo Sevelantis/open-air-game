@@ -51,7 +51,7 @@ class SolveRiddleFragment : Fragment() {
                 toast(requireContext(), "Wrong answer! You lose $wrongAnswerPenalty points!", Toast.LENGTH_LONG)
             }
             if (retries == 0){
-                view.findNavController().popBackStack()
+                unlockNextRiddle(view)
             }
             updateView()
         }
@@ -82,6 +82,18 @@ class SolveRiddleFragment : Fragment() {
         binding.textViewQuestion.text = currentRiddle.question
         binding.textViewRetries.text = "Retries: $retries"
         binding.textViewHintPenalty.text = "Hint penalty: $hintPenalty points"
+    }
+
+    private fun unlockNextRiddle(view : View){
+        gameDataViewModel.nextRiddle()
+        if (gameDataViewModel.isLastRiddle()){
+            toast(requireContext(), "Congratulations! You finished the game!", Toast.LENGTH_LONG)
+            // TODO send request to deregister current user from the game
+//            view?.findNavController()?.navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
+        }else{
+            toast(requireContext(), "Congratulations! You found Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
+        }
+        view.findNavController().popBackStack()
     }
 
 }

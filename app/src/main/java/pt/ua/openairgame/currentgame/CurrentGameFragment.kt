@@ -138,19 +138,6 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun unlockNextRiddle(){
-        putRiddleMarkersOnTheMap()
-        gameDataViewModel.nextRiddle()
-        // check if it is the last riddle
-        if (gameDataViewModel.isLastRiddle()){
-            toast(requireContext(), "Congratulations! You finished the game!", Toast.LENGTH_LONG)
-            // TODO send request to deregister current user from the game
-            // go to GameStats view
-        }else{
-            toast(requireContext(), "Congratulations! You found Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
-        }
-    }
-
     private fun setupMarkersInfoContentView(){
         googleMap.setInfoWindowAdapter(object : InfoWindowAdapter {
             override fun getInfoWindow(marker: Marker): View? {

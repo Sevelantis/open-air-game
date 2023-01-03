@@ -64,7 +64,6 @@ class GameDataViewModel : ViewModel() {
     fun nextRiddle(){
         _gameData.value?.currentRiddleIndex?.plus(1)!!
         _gameData.value?.riddles?.let { setCurrentRiddle(it[currentRiddleIndex!! - 1]) }
-        Log.d(TAG, "Unlocked new riddle: $currentRiddleIndex")
     }
 
     fun setCurrentRiddle(riddle: Riddle){
