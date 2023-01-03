@@ -26,7 +26,6 @@ class GameStatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate<FragmentGameStatsBinding>(
             inflater,
             R.layout.fragment_game_stats,
@@ -46,8 +45,7 @@ class GameStatsFragment : Fragment() {
             val gameTime = gameDataViewModel.gameTime
 
             val scoreText = "Score: ${gameData.score}"
-            val timeText =
-                "Time: ${gameTime.toHoursPart()}h ${gameTime.toMinutesPart()}m ${gameTime.toSecondsPart()}s"
+            val timeText = "Time: ${gameTime.toHoursPart()}h ${gameTime.toMinutesPart()}m ${gameTime.toSecondsPart()}s"
             val riddlesText = "Finished riddles: ${gameData.riddles.size}"
             val stepsText = "Steps: ${gameData.steps}"
             val distanceText = "Distance: ${gameData.distance?.div(1000)}km ${gameData.distance?.mod(1000)}m: "

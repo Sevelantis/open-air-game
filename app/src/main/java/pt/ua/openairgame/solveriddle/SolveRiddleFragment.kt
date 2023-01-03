@@ -93,9 +93,9 @@ class SolveRiddleFragment : Fragment() {
             view.findNavController().navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
         }else{
             toast(requireContext(), "Congratulations! You unlocked Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
+            gameDataViewModel.nextRiddle()
+            view.findNavController().navigate(R.id.action_solveRiddleFragment_to_currentGameFragment)
         }
-        gameDataViewModel.nextRiddle()
-        view.findNavController().navigate(R.id.action_solveRiddleFragment_to_currentGameFragment)
     }
 
 }

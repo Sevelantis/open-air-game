@@ -139,7 +139,7 @@
             <com.dd.processbutton.iml.ActionProcessButton
                 android:id="@+id/buttonSwitchRole"
                 android:layout_width="340dp"
-                android:layout_height="@dimen/elem_height_smaller"
+                android:layout_height="@dimen/elem_height_normal"
                 android:layout_margin="@dimen/margin"
                 android:text="@string/switch_role"
                 android:textColor="@android:color/white"

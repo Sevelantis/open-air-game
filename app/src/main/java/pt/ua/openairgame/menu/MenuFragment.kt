@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import pt.ua.openairgame.databinding.FragmentMenuBinding
 import pt.ua.openairgame.model.GameDataViewModel
 import pt.ua.openairgame.toastBitmap
+import java.time.LocalDateTime
 
 
 class MenuFragment : Fragment() {
@@ -33,6 +34,7 @@ class MenuFragment : Fragment() {
             gameDataViewModel.reset()
             gameDataViewModel.setIsUserCreatingGame(true)
             gameDataViewModel.setIsGameOwner(true)
+            gameDataViewModel.setStartTime(LocalDateTime.now())
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->
