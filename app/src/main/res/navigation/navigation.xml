@@ -70,6 +70,15 @@
     <fragment
         android:id="@+id/solveRiddleFragment"
         android:name="pt.ua.openairgame.solveriddle.SolveRiddleFragment"
-        android:label="SolveRiddleFragment" />
+        android:label="SolveRiddleFragment" >
+        <action
+            android:id="@+id/action_solveRiddleFragment_to_gameStatsFragment"
+            app:destination="@id/gameStatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameStatsFragment"
+        android:name="pt.ua.openairgame.gamestats.GameStatsFragment"
+        android:label="GameStatsFragment"
+        tools:layout="@layout/fragment_game_stats"/>
 
 </navigation>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".gamestats.GameStatsFragment"
+    android:background="@color/beige_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/logoImage"
+            android:layout_width="@dimen/content_width"
+            android:layout_height="@dimen/logo_height_half"
+            android:padding="4dp"
+            android:layout_marginTop="@dimen/margin"
+            android:src="@drawable/ic_baseline_map_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@color/green_500"
+            app:strokeWidth="4dp" />
+
+        <TextView
+            android:id="@+id/tvGameStatsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Finished!"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoImage"
+            android:textColor="@color/black"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/cupsImage"
+            android:layout_width="@dimen/content_width"
+            android:layout_height="130dp"
+            android:layout_marginTop="@dimen/margin"
+            android:src="@drawable/cups"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvGameStatsTitle"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cupsImage"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvStatistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Statistics:"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvStatGameTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Game time: 4h 43m 11s"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatistics"
+                />
+
+            <TextView
+                android:id="@+id/tvStatRiddlesFinished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finished riddles: 12"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatGameTime"
+                />
+
+            <TextView
+                android:id="@+id/tvStatPointsEarned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Score: 1240"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatRiddlesFinished"
+                />
+
+            <TextView
+                android:id="@+id/tvDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance: 9km 583m"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatPointsEarned"
+                />
+
+            <TextView
+                android:id="@+id/tvStatSteps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Steps: 12497"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDistance"
+                />
+
+            <TextView
+                android:id="@+id/tvStatCalories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calories burned: 5361213 kcal"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatSteps"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutButtons2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_half"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutStatistics">
+
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/buttonCloseStats"
+                android:layout_width="@dimen/content_width"
+                android:layout_height="@dimen/elem_height_normal"
+                android:layout_margin="@dimen/margin_half"
+                android:text="Close"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:pb_colorComplete="@color/buttonComplete"
+                app:pb_colorNormal="@color/buttonNormal"
+                app:pb_colorPressed="@color/buttonPressed"
+                app:pb_colorProgress="@color/buttonProgress"
+                app:pb_textComplete="@string/success"
+                app:pb_textProgress="@string/loading" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
+
+</layout>

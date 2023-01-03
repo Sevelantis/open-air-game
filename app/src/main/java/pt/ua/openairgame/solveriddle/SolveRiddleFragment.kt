@@ -31,7 +31,7 @@ class SolveRiddleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate<FragmentSolveRiddleBinding>(inflater, R.layout.fragment_solve_riddle, container, false)
 
         if(gameDataViewModel.currentRiddle != null){
@@ -89,7 +89,7 @@ class SolveRiddleFragment : Fragment() {
         if (gameDataViewModel.isLastRiddle()){
             toast(requireContext(), "Congratulations! You finished the game!", Toast.LENGTH_LONG)
             // TODO send request to deregister current user from the game
-//            view?.findNavController()?.navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
+            view.findNavController().navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
         }else{
             toast(requireContext(), "Congratulations! You found Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
         }
