@@ -3,13 +3,17 @@ package pt.ua.openairgame.model
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
+import java.time.Duration
+import java.time.LocalDateTime
 
 class GameData(val name: String, val description: String?) {
     var riddles: ArrayList<Riddle> = ArrayList()
@@ -18,6 +22,12 @@ class GameData(val name: String, val description: String?) {
     var currentRiddleIndex : Int = 1
     var currentRiddle : Riddle? = null
     var score : Int = 500
+    var startTime: LocalDateTime? = null
+    var endTime: LocalDateTime? = null
+    var steps: Int? = null
+    var distance: Int? = null
+    val calories: Int?
+            get() = steps?.times(450)
 }
 
 class GameDataViewModel : ViewModel() {
@@ -79,7 +89,7 @@ class GameDataViewModel : ViewModel() {
         return riddlesCounter == currentRiddleIndex
     }
 
-    fun isUserAtCurrentRiddleLocation() : Boolean?{
+    fun isUserAtCurrentRiddleLocation() : Boolean {
         updateLocation()
         val radiusMeters = 5
         val location1 = location.value
@@ -98,6 +108,32 @@ class GameDataViewModel : ViewModel() {
 
     val location: LiveData<Location>
         get() = _location
+
+    val gameTime: Duration
+        @RequiresApi(Build.VERSION_CODES.O)
+        get() {
+            val gd: GameData = _gameData.value ?: return Duration.ZERO
+            if (gd.endTime == null) return Duration.ZERO
+            return Duration.between(gd.startTime, gd.endTime)
+        }
+
+    @SuppressLint("NullSafeMutableLiveData")
+    fun setStartTime(t: LocalDateTime) {
+        val gd: GameData? = _gameData.value
+        if (gd != null) {
+            gd.startTime = t
+            _gameData.postValue(gd)
+        }
+    }
+
+    @SuppressLint("NullSafeMutableLiveData")
+    fun setEndTime(t: LocalDateTime) {
+        val gd: GameData? = _gameData.value
+        if (gd != null) {
+            gd.endTime = t
+            _gameData.postValue(gd)
+        }
+    }
 
     val riddlesCounter: Int
         get() = _gameData.value?.riddles!!.size + 1
