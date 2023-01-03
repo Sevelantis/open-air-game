@@ -56,6 +56,9 @@ class CreateGameFragment : Fragment() {
         binding.buttonGameSave.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.menuFragment)
         }
+        binding.buttonGameShowMap.setOnClickListener { view : View ->
+            view.findNavController().navigate(R.id.currentGameFragment)
+        }
         return binding.root
     }
 
@@ -113,6 +116,7 @@ class CreateGameFragment : Fragment() {
                 Log.d(TAG, "Saved game Riddles: ${gameDataViewModel.getRiddles()}")
                 // TODO send request to create an active game, where the owner of the game is the current user
                 view.findNavController().navigate(R.id.action_createGameFragment_to_addRiddleFragment)
+                gameDataViewModel.setIsUserCreatingGame(false)
             }
 
         }

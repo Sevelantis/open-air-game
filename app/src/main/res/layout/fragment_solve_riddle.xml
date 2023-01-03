@@ -62,7 +62,7 @@
                     android:textColor="@color/black"
                     android:textColorHighlight="#7cff88"
                     android:textSize="22sp"
-                    app:layout_constraintBottom_toTopOf="@+id/textViewRiddle"
+                    app:layout_constraintBottom_toTopOf="@+id/textViewQuestion"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
 
 
                 <TextView
-                    android:id="@+id/textViewRiddle"
+                    android:id="@+id/textViewQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
@@ -95,7 +95,7 @@
                     android:layout_margin="@dimen/margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewRiddle"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewQuestion"
                     app:layout_constraintVertical_bias="0.0">
 
                     <EditText
@@ -164,6 +164,26 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buttonHint"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:id="@+id/textViewWrongAnswerPenalty"
+                    android:layout_width="290dp"
+                    android:layout_height="@dimen/elem_height_smaller"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/margin_half"
+                    android:ems="10"
+                    android:hint="@string/wrong_answer_penalty"
+                    android:inputType="text"
+                    android:maxLines="10"
+                    android:padding="@dimen/margin_half"
+                    android:textColor="@color/black"
+                    android:textColorHighlight="#7cff88"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewHintPenalty"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
