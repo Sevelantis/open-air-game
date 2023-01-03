@@ -86,15 +86,16 @@ class SolveRiddleFragment : Fragment() {
     }
 
     private fun unlockNextRiddle(view : View){
-        gameDataViewModel.nextRiddle()
         if (gameDataViewModel.isLastRiddle()){
             toast(requireContext(), "Congratulations! You finished the game!", Toast.LENGTH_LONG)
+            Log.d(TAG, "Congratulations! You finished the game! Moving to gameStatsFragment")
             // TODO send request to deregister current user from the game
             view.findNavController().navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
         }else{
-            toast(requireContext(), "Congratulations! You found Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
+            toast(requireContext(), "Congratulations! You unlocked Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
         }
-        view.findNavController().popBackStack()
+        gameDataViewModel.nextRiddle()
+        view.findNavController().navigate(R.id.action_solveRiddleFragment_to_currentGameFragment)
     }
 
 }

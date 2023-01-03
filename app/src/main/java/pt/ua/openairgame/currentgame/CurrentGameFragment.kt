@@ -2,7 +2,6 @@ package pt.ua.openairgame.currentgame
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Typeface
 import android.hardware.Sensor
@@ -10,6 +9,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.Location
+import android.os.Build.VERSION_CODES.R
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -138,9 +138,6 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     private fun loadGameData() {
         // TODO request to get active game data
         gameData = gameDataViewModel.gameData.value
-        if (gameData != null){
-            gameDataViewModel.setupFirstRiddleAsCurrent()
-        }
     }
 
     private fun putRiddleMarkersOnTheMap(){
@@ -254,11 +251,11 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
 
                 if(gameDataViewModel.isUserAtCurrentRiddleLocation() == true){
                     toast(requireContext(), "Unlocked: Riddle #${gameDataViewModel.currentRiddleIndex}", Toast.LENGTH_LONG)
-                    view?.findNavController()?.navigate(pt.ua.openairgame.R.id.action_currentGameFragment_to_solveRiddleFragment)
+                    requireView().findNavController().navigate(pt.ua.openairgame.R.id.action_currentGameFragment_to_solveRiddleFragment)
                 }else{
                     toast(requireContext(), "There is no riddle here!", Toast.LENGTH_LONG)
+                    isShakeDetected = false
                 }
-                isShakeDetected = false
             }
         }
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
