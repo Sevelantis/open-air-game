@@ -61,7 +61,7 @@ fun getNiceRandomMarkerIcon(): BitmapDescriptor {
 }
 
 fun toast(mContext: Context, toastText : String, length : Int){
-    Toast.makeText(mContext, toastText, length).show()
+    Toast.makeText(mContext, toastText, Toast.LENGTH_SHORT).show()
 }
 
 fun toastBitmap(mContext: Context, bitmap : Bitmap){

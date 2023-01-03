@@ -123,8 +123,9 @@ class CreateGameFragment : Fragment() {
     private fun saveGame(view: View){
         // TODO send request to create an active game, where the owner of the game is the current user
         gameDataViewModel.setIsUserCreatingGame(false)
-        gameDataViewModel.setGameOwner(true)
+        gameDataViewModel.setIsGameOwner(true)
         gameDataViewModel.setHasActiveGame(true)
+        gameDataViewModel.setupFirstRiddleAsCurrent()
         view.findNavController().popBackStack()
     }
 

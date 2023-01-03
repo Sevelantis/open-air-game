@@ -64,7 +64,7 @@ class GameDataViewModel : ViewModel() {
         return _gameData.value?.isGameOwner
     }
 
-    fun setGameOwner(value:Boolean){
+    fun setIsGameOwner(value:Boolean){
         _gameData.value?.isGameOwner = value
     }
 
@@ -92,7 +92,7 @@ class GameDataViewModel : ViewModel() {
     }
 
     fun setupFirstRiddleAsCurrent(){
-        setCurrentRiddle(_gameData.value?.riddles!![0])
+        setCurrentRiddle(_gameData.value?.riddles!![currentRiddleIndex!! - 1])
     }
 
     fun isLastRiddle() : Boolean{
@@ -147,7 +147,7 @@ class GameDataViewModel : ViewModel() {
     }
 
     val riddlesCounter: Int
-        get() = _gameData.value?.riddles!!.size + 1
+        get() = _gameData.value?.riddles!!.size
 
     val currentRiddleIndex : Int?
         get() = _gameData.value?.currentRiddleIndex

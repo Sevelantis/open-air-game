@@ -32,6 +32,7 @@ class MenuFragment : Fragment() {
         binding.buttonGameCreate.setOnClickListener{ view : View ->
             gameDataViewModel.reset()
             gameDataViewModel.setIsUserCreatingGame(true)
+            gameDataViewModel.setIsGameOwner(true)
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->
@@ -56,20 +57,20 @@ class MenuFragment : Fragment() {
     private fun switchRole(){
         var btnText = ""
         if(gameDataViewModel.isGameOwner() == true){
-            gameDataViewModel.setGameOwner(false)
+            gameDataViewModel.setIsGameOwner(false)
             btnText = "Become Owner"
         }else{
-            gameDataViewModel.setGameOwner(true)
+            gameDataViewModel.setIsGameOwner(true)
             btnText = "Become Player"
         }
         binding.buttonSwitchRole.text = btnText
     }
 
     private fun setupButtonsVisibility(){
-        if(gameDataViewModel.isGameOwner() == true){
-            binding.buttonGameEnd.visibility = View.VISIBLE
-            binding.buttonSwitchRole.visibility = View.VISIBLE
-        }
+        binding.buttonGameEnd.visibility = View.INVISIBLE
+//        if(gameDataViewModel.isGameOwner() == true){
+//            binding.buttonGameEnd.visibility = View.VISIBLE
+//        }
         if(gameDataViewModel.hasActiveGame() == true){
             binding.buttonGameCurrent.visibility = View.VISIBLE
             binding.buttonShowQr.visibility = View.VISIBLE

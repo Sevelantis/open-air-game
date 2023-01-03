@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_solveRiddleFragment_to_gameStatsFragment"
             app:destination="@id/gameStatsFragment" />
+        <action
+            android:id="@+id/action_solveRiddleFragment_to_currentGameFragment"
+            app:destination="@id/currentGameFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameStatsFragment"
