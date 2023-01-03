@@ -2,10 +2,12 @@ package pt.ua.openairgame.menu
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -23,6 +25,7 @@ class MenuFragment : Fragment() {
     private lateinit var binding : FragmentMenuBinding
     private val gameDataViewModel: GameDataViewModel by activityViewModels()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +37,6 @@ class MenuFragment : Fragment() {
             gameDataViewModel.reset()
             gameDataViewModel.setIsUserCreatingGame(true)
             gameDataViewModel.setIsGameOwner(true)
-            gameDataViewModel.setStartTime(LocalDateTime.now())
             view.findNavController().navigate(pt.ua.openairgame.R.id.action_menuFragment_to_createGameFragment)
         }
         binding.buttonGameCurrent.setOnClickListener{ view : View ->

@@ -51,7 +51,7 @@ class AddRiddleFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentAddRiddleBinding>(inflater,R.layout.fragment_add_riddle, container, false)
         imageViewPhoto = binding.imageViewPhotoHint
 
-        binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter}"
+        binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter + 1}"
 
         binding.buttonSaveRiddle.setOnClickListener { view: View ->
             saveRiddle(view)
