@@ -8,7 +8,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -22,6 +24,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter
@@ -44,6 +47,11 @@ import kotlin.math.sqrt
 class CurrentGameFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mLocationRequest: LocationRequest
+    private var mLastLocation: Location? = null
+    private var mCurrLocationMarker: Marker? = null
+
     private val TAG = "CurrentGameFragment"
 
     private var sensorManager: SensorManager? = null
@@ -75,6 +83,8 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     ): View? {
         binding = DataBindingUtil.inflate<FragmentCurrentGameBinding>(inflater, pt.ua.openairgame.R.layout.fragment_current_game, container, false)
 
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
         val mapFragment = childFragmentManager.findFragmentById(pt.ua.openairgame.R.id.fragmentCurrentGameMap) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
         return binding.root
@@ -83,8 +93,19 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
+
+        mLocationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 500)
+            .setWaitForAccurateLocation(true)
+            .setMinUpdateIntervalMillis(100)
+            .setMaxUpdateDelayMillis(1000)
+            .build()
+
+        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback,
+            Looper.myLooper())
+
         googleMap.isMyLocationEnabled = true
-        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        googleMap.setMaxZoomPreference(30f)
         setupMarkersInfoContentView()
         gameDataViewModel.location.observe(viewLifecycleOwner) {
             if (!isCameraSet){
@@ -97,6 +118,20 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
         gameDataViewModel.updateLocation()
         loadGameData()
         putRiddleMarkersOnTheMap()
+    }
+
+    var mLocationCallback: LocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val locationList: List<Location> = locationResult.locations
+            if (locationList.isNotEmpty()) {
+                //The last location in the list is the newest
+                val location: Location = locationList[locationList.size - 1]
+                mLastLocation = location
+                if (mCurrLocationMarker != null) {
+                    mCurrLocationMarker!!.remove()
+                }
+            }
+        }
     }
 
     private fun loadGameData() {
@@ -118,7 +153,7 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
             val position = LatLng(riddle.location.latitude, riddle.location.longitude)
             val title = "Riddle #$cnt"
             val snippet = "Question: ${riddle.question}\nAnswer: ${riddle.answer}"
-            var markerOptions = MarkerOptions()
+            val markerOptions = MarkerOptions()
                 .position(position)
                 .title(title)
                 .snippet(snippet)
