@@ -211,11 +211,11 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
                 isShakeDetected = true
 
                 if(gameDataViewModel.isUserAtCurrentRiddleLocation() == true){
-                    toast(requireContext(), "Congratulations! You can now solve: Riddle #${gameDataViewModel.currentRiddleIndex}", Toast.LENGTH_LONG)
+                    toast(requireContext(), "Unlocked: Riddle #${gameDataViewModel.currentRiddleIndex}", Toast.LENGTH_LONG)
                     view?.findNavController()?.navigate(pt.ua.openairgame.R.id.action_currentGameFragment_to_solveRiddleFragment)
                 }else{
                     isShakeDetected = false
-                    toast(requireContext(), "There is no riddle in your location!", Toast.LENGTH_LONG)
+                    toast(requireContext(), "There is no riddle here!", Toast.LENGTH_LONG)
                 }
             }
         }
