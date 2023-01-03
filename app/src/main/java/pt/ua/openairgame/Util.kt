@@ -4,18 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.location.Location
 import android.net.Uri
-import android.util.Log
 import android.view.Display
+import android.view.Gravity
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import java.io.FileDescriptor
 import java.io.IOException
-import kotlin.math.acos
-import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.random.Random
 
 
@@ -39,11 +36,11 @@ fun resizeBitmapIcon(bitmap: Bitmap, activity : Activity): BitmapDescriptor {
     return BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitmap, width, height, false))
 }
 
-fun resizeBitmap(bitmap: Bitmap, activity : Activity): Bitmap? {
+fun resizeBitmap(bitmap: Bitmap, activity : Activity, scale:Double=5.0): Bitmap? {
     val display: Display = activity.windowManager.defaultDisplay
-    val width: Int = display.width / 5
-    val height: Int = display.height / 5
-    return Bitmap.createScaledBitmap(bitmap, width, height, false)
+    val width = display.width / scale
+    val height = display.height / scale
+    return Bitmap.createScaledBitmap(bitmap, width.toInt(), height.toInt(), false)
 }
 
 fun getNiceRandomMarkerIcon(): BitmapDescriptor {
@@ -63,32 +60,16 @@ fun getNiceRandomMarkerIcon(): BitmapDescriptor {
     return BitmapDescriptorFactory.defaultMarker(markerColor)
 }
 
-fun toast(mContext: Context, toastText : String){
-    Toast.makeText(mContext, toastText, Toast.LENGTH_SHORT).show()
+fun toast(mContext: Context, toastText : String, length : Int){
+    Toast.makeText(mContext, toastText, length).show()
 }
 
-fun distanceLocation(location1: Location, location2: Location): Double {
-    val theta = location1.longitude - location2.longitude
-    var dist = (sin(degToRad(location1.latitude))
-            * sin(degToRad(location2.latitude))
-            * cos(degToRad(location1.latitude))
-            * cos(degToRad(location2.latitude))
-            * cos(degToRad(theta)))
-    dist = acos(dist)
-    dist = radToDeg(dist)
-    dist *= 60.0 * 1.1515
-//    var distStr = "$dist Km."
-    if (dist < 0) {
-        dist *= 1000
-        Log.d("distanceLocation", "$dist Meter")
-    }
-    return dist
-}
-
-private fun radToDeg(rad: Double): Double {
-    return rad * 180 / Math.PI
-}
-
-private fun degToRad(deg: Double): Double {
-    return deg * Math.PI / 180.0
+fun toastBitmap(mContext: Context, bitmap : Bitmap){
+    val toast = Toast(mContext)
+    val imageViewQr = ImageView(mContext)
+    imageViewQr.setImageBitmap(bitmap)
+    toast.view = imageViewQr
+    toast.setGravity(Gravity.CENTER, 0, 0);
+    toast.duration = Toast.LENGTH_LONG
+    toast.show()
 }

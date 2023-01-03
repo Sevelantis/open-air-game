@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -83,8 +84,7 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
         googleMap.isMyLocationEnabled = true
-        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-        googleMap.setMaxZoomPreference(30f)
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         setupMarkersInfoContentView()
         gameDataViewModel.location.observe(viewLifecycleOwner) {
             if (!isCameraSet){
@@ -143,11 +143,11 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
         gameDataViewModel.nextRiddle()
         // check if it is the last riddle
         if (gameDataViewModel.isLastRiddle()){
-            toast(requireContext(), "Congratulations! You finished the game!")
+            toast(requireContext(), "Congratulations! You finished the game!", Toast.LENGTH_LONG)
             // TODO send request to deregister current user from the game
             // go to GameStats view
         }else{
-            toast(requireContext(), "Congratulations! You are now at Riddle #${gameDataViewModel.currentRiddleIndex}!")
+            toast(requireContext(), "Congratulations! You found Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
         }
     }
 
@@ -224,11 +224,11 @@ class CurrentGameFragment : Fragment(), OnMapReadyCallback {
                 isShakeDetected = true
 
                 if(gameDataViewModel.isUserAtCurrentRiddleLocation() == true){
-                    toast(requireContext(), "Congratulations! You can now solve: Riddle #${gameDataViewModel.currentRiddleIndex}")
+                    toast(requireContext(), "Congratulations! You can now solve: Riddle #${gameDataViewModel.currentRiddleIndex}", Toast.LENGTH_LONG)
                     view?.findNavController()?.navigate(pt.ua.openairgame.R.id.action_currentGameFragment_to_solveRiddleFragment)
                 }else{
                     isShakeDetected = false
-                    toast(requireContext(), "There is no riddle in your location!")
+                    toast(requireContext(), "There is no riddle in your location!", Toast.LENGTH_LONG)
                 }
             }
         }

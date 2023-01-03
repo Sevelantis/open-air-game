@@ -52,6 +52,10 @@ class AddRiddleFragment : Fragment() {
         imageViewPhoto = binding.imageViewPhotoHint
 
         binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter}"
+        // example riddle data
+        binding.editTextRiddle.setText("The highest building in the world?")
+        binding.editTextAnswer.setText("Burj Khalifa")
+        // example riddle data
 
         binding.buttonSaveRiddle.setOnClickListener { view: View ->
             saveRiddle(view)

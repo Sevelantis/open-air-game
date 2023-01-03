@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import pt.ua.openairgame.databinding.FragmentMenuBinding
 import pt.ua.openairgame.model.GameDataViewModel
+import pt.ua.openairgame.toastBitmap
 
 
 class MenuFragment : Fragment() {
@@ -69,14 +70,7 @@ class MenuFragment : Fragment() {
     }
 
     private fun showQr(){
-        val bitmap = generateQrBitmap(getQrContent())
-        val toast = Toast(context)
-        val imageViewQr = ImageView(context)
-        imageViewQr.setImageBitmap(bitmap)
-        toast.view = imageViewQr
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.duration = Toast.LENGTH_LONG
-        toast.show()
+        generateQrBitmap(getQrContent())?.let { toastBitmap(requireContext(), it) }
     }
 
     private fun generateQrBitmap(content : String): Bitmap? {
