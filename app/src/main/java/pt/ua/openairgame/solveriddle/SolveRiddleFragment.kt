@@ -92,10 +92,10 @@ class SolveRiddleFragment : Fragment() {
             // TODO send request to deregister current user from the game
             view.findNavController().navigate(R.id.action_solveRiddleFragment_to_gameStatsFragment)
         }else{
-            toast(requireContext(), "Congratulations! You unlocked Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
+//            toast(requireContext(), "Congratulations! You unlocked Riddle #${gameDataViewModel.currentRiddleIndex}!", Toast.LENGTH_LONG)
+            gameDataViewModel.nextRiddle()
+            view.findNavController().navigate(R.id.action_solveRiddleFragment_to_currentGameFragment)
         }
-        gameDataViewModel.nextRiddle()
-        view.findNavController().navigate(R.id.action_solveRiddleFragment_to_currentGameFragment)
     }
 
 }

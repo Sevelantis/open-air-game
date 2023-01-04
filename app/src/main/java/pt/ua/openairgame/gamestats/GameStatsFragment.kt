@@ -26,7 +26,6 @@ class GameStatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate<FragmentGameStatsBinding>(
             inflater,
             R.layout.fragment_game_stats,
@@ -37,23 +36,23 @@ class GameStatsFragment : Fragment() {
         val gameData = gameDataViewModel.gameData.value
 
         if (gameData != null) {
-            gameDataViewModel.setStartTime(LocalDateTime.now().plusMinutes(-23).plusHours(-2))
-
             if (gameData.endTime == null) {
                 gameDataViewModel.setEndTime(LocalDateTime.now())
             }
 
-            val gameTime = gameDataViewModel.gameTime
+//            val gameTime = gameDataViewModel.gameTime
 
+            val dist = gameDataViewModel.getRiddlesTotalDistance()
+            val steps = (dist * 1.31).toInt()
+            val calories = steps / 20
             val scoreText = "Score: ${gameData.score}"
-            val timeText =
-                "Time: ${gameTime.toHoursPart()}h ${gameTime.toMinutesPart()}m ${gameTime.toSecondsPart()}s"
+//            val timeText = "Time: ${gameTime.toHours()}h ${((gameTime.seconds % (60 * 60)) / 60).toInt()}m ${(gameTime.seconds % 60).toInt()}s"
             val riddlesText = "Finished riddles: ${gameData.riddles.size}"
-            val stepsText = "Steps: ${gameData.steps}"
-            val distanceText = "Distance: ${gameData.distance?.div(1000)}km ${gameData.distance?.mod(1000)}m: "
-            val caloriesText = "Calories burned: ${gameData.calories} kcal"
+            val stepsText = "Steps: ${steps}"
+            val distanceText = "Distance: ${dist} [m]"
+            val caloriesText = "Calories burned: ${calories} kcal"
 
-            binding.tvStatGameTime.text = timeText
+//            binding.tvStatGameTime.text = timeText
             binding.tvStatPointsEarned.text = scoreText
             binding.tvStatRiddlesFinished.text = riddlesText
             binding.tvStatSteps.text = stepsText
@@ -62,10 +61,17 @@ class GameStatsFragment : Fragment() {
         }
 
         binding.buttonCloseStats.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.menuFragment)
+            finishGame(view)
         }
 
         return binding.root
+    }
+
+    private fun finishGame(view : View){
+        gameDataViewModel.reset()
+        gameDataViewModel.setHasActiveGame(false)
+        gameDataViewModel.setIsGameOwner(false)
+        view.findNavController().popBackStack(R.id.createGameFragment, true)
     }
 
 }

@@ -51,7 +51,7 @@ class AddRiddleFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentAddRiddleBinding>(inflater,R.layout.fragment_add_riddle, container, false)
         imageViewPhoto = binding.imageViewPhotoHint
 
-        binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter}"
+        binding.tvAddRiddleTitle.text = "Riddle #${gameDataViewModel.riddlesCounter + 1}"
 
         binding.buttonSaveRiddle.setOnClickListener { view: View ->
             saveRiddle(view)
@@ -61,14 +61,24 @@ class AddRiddleFragment : Fragment() {
             dispatchTakePictureIntent()
         }
         setupHideKeyboard()
-        mockRiddleData()
+        mockRiddleExampleData()
 
         return binding.root
     }
 
-    private fun mockRiddleData(){
-        binding.editTextRiddle.setText("The highest building in the world?")
-        binding.editTextAnswer.setText("Burj Khalifa")
+    private fun mockRiddleExampleData(){
+        val whichRiddle = gameDataViewModel.riddlesCounter
+        var question = ""
+        var answer = ""
+        if (whichRiddle == 0){
+            question = "The highest building in the world?"
+            answer = "Burj Khalifa"
+        }else{
+            question = "Example question ${whichRiddle}? "
+            answer = "$whichRiddle"
+        }
+        binding.editTextRiddle.setText(question)
+        binding.editTextAnswer.setText(answer)
     }
 
     @Deprecated("Deprecated in Java")

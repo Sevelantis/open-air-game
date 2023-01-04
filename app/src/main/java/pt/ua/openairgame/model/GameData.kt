@@ -102,16 +102,30 @@ class GameDataViewModel : ViewModel() {
 
     fun isUserAtCurrentRiddleLocation() : Boolean?{
         updateLocation()
-        val radiusMeters = 5
+        val radiusMeters = 15
         val location1 = location.value
         val location2 = currentRiddle!!.location
         if (location1 != null) {
             val distance = location1.distanceTo(location2)
             if(distance < radiusMeters){
+
                 return true
             }
         }
         return false
+    }
+
+    fun getRiddlesTotalDistance() : Float{
+        var dist : Float = 0.0f
+        val riddles = getRiddles()!!
+        for (i in 0 until riddles.size) {
+            if(i+1 < riddles.size){
+                val loc1 = riddles[i].location
+                val loc2 = riddles[i+1].location
+                dist += loc1.distanceTo(loc2)
+            }
+        }
+        return dist
     }
 
     val gameData: LiveData<GameData>
@@ -120,13 +134,13 @@ class GameDataViewModel : ViewModel() {
     val location: LiveData<Location>
         get() = _location
 
-    val gameTime: Duration
-        @RequiresApi(Build.VERSION_CODES.O)
-        get() {
-            val gd: GameData = _gameData.value ?: return Duration.ZERO
-            if (gd.endTime == null) return Duration.ZERO
-            return Duration.between(gd.startTime, gd.endTime)
-        }
+//    val gameTime: Duration
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        get() {
+//            val gd: GameData = _gameData.value ?: return Duration.ZERO
+//            if (gd.endTime == null) return Duration.ZERO
+//            return Duration.between(gd.startTime, gd.endTime)
+//        }
 
     @SuppressLint("NullSafeMutableLiveData")
     fun setStartTime(t: LocalDateTime) {
